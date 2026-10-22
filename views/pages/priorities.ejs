@@ -1,0 +1,32 @@
+<%- include('../partials/head') %>
+
+<header class="page-title">
+  <div class="wrap">
+    <p class="eyebrow"><%= t.priorities_eyebrow %></p>
+    <h1><%= t.priorities_title %></h1>
+    <p class="lead"><%= c.paras[18][0] %></p>
+  </div>
+</header>
+
+<section class="section">
+  <div class="wrap">
+    <%- include('../partials/section-head', { n: 18 }) %>
+    <div class="two-col top">
+      <ol class="priority-list">
+        <% c.priorities.forEach(function (p) { %><li><%= p %></li><% }) %>
+      </ol>
+      <%- include('../partials/figure', { file: 'peer-leadership.jpg' }) %>
+    </div>
+    <%- include('../partials/callout', { slug: 'sustainability-statement' }) %>
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="wrap narrow-block">
+    <%- include('../partials/section-head', { n: 20 }) %>
+    <p class="lead-quote"><%= c.paras[20][0] %></p>
+    <p class="center"><a class="btn" href="/contact"><%= t.priorities_cta %></a></p>
+  </div>
+</section>
+
+<%- include('../partials/foot') %>

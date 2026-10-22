@@ -1,0 +1,109 @@
+<%- include('../partials/head') %>
+
+<header class="page-title">
+  <div class="wrap">
+    <p class="eyebrow"><%= t.programmes_eyebrow %></p>
+    <h1><%= t.programmes_title %></h1>
+    <p class="lead"><%= t.programmes_lead %></p>
+  </div>
+</header>
+
+<section class="section">
+  <div class="wrap">
+    <%- include('../partials/section-head', { n: 7 }) %>
+    <div class="two-col top">
+      <div class="prose">
+        <% c.paras[7].forEach(function (p) { %><p><%= p %></p><% }) %>
+      </div>
+      <%- include('../partials/figure', { file: 'srhr-education.jpg' }) %>
+    </div>
+    <h3><%= t.programmes_comm_messages %></h3>
+    <div class="table-wrap">
+      <table>
+        <caption class="sr-only"><%= t.programmes_comm_messages %></caption>
+        <thead><tr><th scope="col"><%= t.programmes_msg_type %></th><th scope="col"><%= t.programmes_msg_wording %></th></tr></thead>
+        <tbody>
+          <% c.messages.forEach(function (m) { %>
+          <tr><th scope="row"><%= m.message_type %></th><td lang="<%= m.lang %>"><%= m.wording %></td></tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="wrap">
+    <%- include('../partials/section-head', { n: 8 }) %>
+    <div class="two-col top">
+      <div class="prose">
+        <% c.paras[8].forEach(function (p) { %><p><%= p %></p><% }) %>
+      </div>
+      <%- include('../partials/figure', { file: 'disability-inclusion.jpg' }) %>
+    </div>
+    <h3><%= t.programmes_barriers_title %></h3>
+    <div class="table-wrap">
+      <table>
+        <caption class="sr-only"><%= t.programmes_barriers_title %></caption>
+        <thead><tr><th scope="col"><%= t.programmes_barrier %></th><th scope="col"><%= t.programmes_response %></th></tr></thead>
+        <tbody>
+          <% c.barriers.forEach(function (r) { %>
+          <tr><th scope="row"><%= r.barrier %></th><td><%= r.response %></td></tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <%- include('../partials/section-head', { n: 9 }) %>
+    <div class="two-col top">
+      <div class="prose">
+        <p><%= c.paras[9][0] %></p>
+        <p><%= c.paras[9][1] %></p>
+      </div>
+      <%- include('../partials/figure', { file: 'rural-awareness.jpg' }) %>
+    </div>
+    <%- include('../partials/callout', { slug: 'dignity-messages' }) %>
+    <div class="table-wrap">
+      <table>
+        <caption class="sr-only"><%= t.programmes_outreach_title %></caption>
+        <thead><tr><th scope="col"><%= t.programmes_element %></th><th scope="col"><%= t.programmes_use %></th></tr></thead>
+        <tbody>
+          <% c.outreach.forEach(function (r) { %>
+          <tr><th scope="row"><%= r.element %></th><td><%= r.practical_use %></td></tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="wrap">
+    <%- include('../partials/section-head', { n: 10 }) %>
+    <div class="two-col top">
+      <div class="prose">
+        <p><%= c.paras[10][0] %></p>
+        <%- include('../partials/callout', { slug: 'communications-rule' }) %>
+      </div>
+      <%- include('../partials/figure', { file: 'safe-pregnancy.jpg' }) %>
+    </div>
+    <h3><%= t.programmes_terms_title %></h3>
+    <div class="table-wrap">
+      <table>
+        <caption class="sr-only"><%= t.programmes_terms_title %></caption>
+        <thead><tr><th scope="col"><%= t.programmes_tech_term %></th><th scope="col"><%= t.programmes_better_wording %></th></tr></thead>
+        <tbody>
+          <% c.terms.forEach(function (r) { %>
+          <tr><th scope="row"><%= r.technical_term %></th><td><%= r.better_wording %></td></tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/foot') %>

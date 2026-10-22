@@ -1,0 +1,57 @@
+# VISUMO website + PostgreSQL 16, database pre-loaded with the report content.
+#
+#   cp .env.example .env        # then edit passwords
+#   docker compose -f docker-compose.postgres.yml up -d --build
+#
+# The SQL file in database/postgres is imported automatically the FIRST time the
+# database volume is created. To re-import from scratch:
+#   docker compose -f docker-compose.postgres.yml down -v   (DELETES all data, incl. contact messages)
+
+name: visumo-postgres
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_NAME:-visumo}
+      POSTGRES_USER: ${DB_USER:-visumo}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in .env}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./database/postgres/visumo_postgres_full.sql:/docker-entrypoint-initdb.d/01-visumo.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+  web:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      HOST: 0.0.0.0
+      DB_CLIENT: postgres
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: ${DB_NAME:-visumo}
+      DB_USER: ${DB_USER:-visumo}
+      DB_PASSWORD: ${DB_PASSWORD}
+      SITE_URL: ${SITE_URL:-http://localhost:3000}
+      TRUST_PROXY: ${TRUST_PROXY:-}
+      FORCE_HTTPS: ${FORCE_HTTPS:-false}
+      CONTACT_EMAIL: ${CONTACT_EMAIL:-visumoadm@gmail.com}
+      ADMIN_USER: ${ADMIN_USER:-admin}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-}
+      CACHE_TTL_SECONDS: ${CACHE_TTL_SECONDS:-60}
+    # Use WEB_BIND=127.0.0.1 when nginx on the same server fronts the site (recommended in production)
+    ports:
+      - "${WEB_BIND:-0.0.0.0}:${WEB_PORT:-3000}:3000"
+
+volumes:
+  pgdata:

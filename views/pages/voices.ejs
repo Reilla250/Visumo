@@ -1,0 +1,30 @@
+<%- include('../partials/head') %>
+
+<header class="page-title">
+  <div class="wrap">
+    <p class="eyebrow"><%= t.voices_eyebrow %></p>
+    <h1><%= t.voices_title %></h1>
+    <p class="lead"><%= t.voices_lead %></p>
+  </div>
+</header>
+
+<section class="section">
+  <div class="wrap">
+    <%- include('../partials/section-head', { n: 12 }) %>
+    <%- include('../partials/callout', { slug: 'protection-note' }) %>
+    <div class="quotes">
+      <% c.testimonies.forEach(function (testimony) { %>
+      <figure class="quote">
+        <figcaption>
+          <span class="tag"><%= lang === 'fr' ? 'Français' : lang === 'sw' ? 'Kiswahili' : 'English' %></span>
+          <%= testimony.title %>
+        </figcaption>
+        <blockquote lang="<%= testimony.lang %>"><p>&ldquo;<%= testimony.quote %>&rdquo;</p></blockquote>
+        <% if (testimony.anonymised) { %><p class="small muted"><%= t.voices_anonymized %></p><% } %>
+      </figure>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/foot') %>

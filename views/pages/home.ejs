@@ -1,0 +1,107 @@
+<%- include('../partials/head') %>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow"><%= t.hero_eyebrow %> <span aria-hidden="true">·</span> <%= t.hero_location %></p>
+      <h1><%= c.settings.hero_headline %></h1>
+      <p class="lead"><%= c.settings.tagline %></p>
+      <div class="btn-row">
+        <a class="btn" href="/report"><%= t.hero_cta_report %></a>
+        <a class="btn btn-ghost" href="/contact"><%= t.hero_cta_partner %></a>
+      </div>
+      <p class="motto" lang="sw"><%= c.settings.sw_motto %></p>
+    </div>
+    <%- include('../partials/figure', { file: 'hero-community.jpg', cls: 'hero-fig', eager: true }) %>
+  </div>
+</section>
+
+<section class="band" aria-label="<%= t.key_figures %>">
+  <div class="wrap">
+    <ul class="stats">
+      <% c.figures.forEach(function (f) { %>
+      <li>
+        <span class="stat-num"><%= f.is_approximate ? (lang === 'en' ? 'approx. ' : lang === 'sw' ? 'takriban ' : 'environ ') : '' %><%= f.figure_value %></span>
+        <span class="stat-label"><%= f.label %></span>
+        <span class="stat-detail"><%= f.detail %></span>
+      </li>
+      <% }) %>
+    </ul>
+    <p class="small center muted">
+      <% if (lang === 'en') { %>ISACAD programme objectives: 30 months in 5 priority zones.
+      <% } else if (lang === 'sw') { %>Malengo ya programu ISACAD: miezi 30 katika kanda 5 za kipaumbele.
+      <% } else { %>Objectifs du programme ISACAD : 30 mois dans 5 zones prioritaires.<% } %>
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap two-col">
+    <div>
+      <p class="eyebrow"><%= t.who_we_are %></p>
+      <h2><% if (lang === 'en') { %>A local organisation led by survivors<% } else if (lang === 'sw') { %>Shirika la ndani linaloongozwa na waathirika<% } else { %>Une organisation locale dirigée par des survivantes<% } %></h2>
+      <p><%= c.paras[3][0] %></p>
+      <p><%= c.paras[3][1] %></p>
+      <p><a class="more" href="/about#s3"><%= t.read_more %> &rarr;</a></p>
+    </div>
+    <div>
+      <%- include('../partials/callout', { slug: 'identity-statement' }) %>
+      <%- include('../partials/callout', { slug: 'guiding-principle' }) %>
+    </div>
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="wrap">
+    <p class="eyebrow"><%= t.where_we_act %></p>
+    <h2><% if (lang === 'en') { %>Beni and displacement-affected communities<% } else if (lang === 'sw') { %>Beni na jamii zilizoathiriwa na uhamisho<% } else { %>Beni et les communautés touchées par les déplacements<% } %></h2>
+    <ul class="chips">
+      <% c.locations.forEach(function (l) { %>
+      <li><strong><%= l.name %></strong><span><%= l.kind %></span></li>
+      <% }) %>
+    </ul>
+    <p class="narrow"><%= c.paras[5][1] %></p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <p class="eyebrow"><%= t.our_work %></p>
+    <h2><% if (lang === 'en') { %>The principles guiding our work<% } else if (lang === 'sw') { %>Kanuni zinazoongoza kazi yetu<% } else { %>Les principes qui guident notre travail<% } %></h2>
+    <div class="cards">
+      <% c.dashboard.forEach(function (d) { %>
+      <article class="card">
+        <h3><%= d.area %></h3>
+        <p><%= d.position_text %></p>
+      </article>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="wrap two-col">
+    <div>
+      <p class="eyebrow"><%= t.financial_transparency %></p>
+      <h2><% if (lang === 'en') { %>Audited revenues growing in 2025<% } else if (lang === 'sw') { %>Mapato yaliyokaguliwa yanaongezeka mnamo 2025<% } else { %>Des revenus audités en hausse en 2025<% } %></h2>
+      <p><% if (lang === 'en') { %>Exact amounts in USD, from audited financial statements of 2024 and 2025.
+      <% } else if (lang === 'sw') { %>Kiasi halisi kwa USD, kutoka taarifa za fedha zilizokaguliwa za 2024 na 2025.
+      <% } else { %>Montants exacts en USD, issus des états financiers audités de 2024 et 2025.<% } %></p>
+      <p><a class="more" href="/finance"><%= t.learn_more %> &rarr;</a></p>
+    </div>
+    <dl class="big-numbers">
+      <div><dt>2024 (<%= lang === 'en' ? 'audited' : lang === 'sw' ? 'imekaguliwa' : 'audité' %>)</dt><dd><%= usd(c.income.byYear[2024].amount) %></dd></div>
+      <div><dt>2025 (<%= lang === 'en' ? 'audited' : lang === 'sw' ? 'imekaguliwa' : 'audité' %>)</dt><dd><%= usd(c.income.byYear[2025].amount) %></dd></div>
+      <div class="accent"><dt><%= lang === 'en' ? 'Growth' : lang === 'sw' ? 'Ukuaji' : 'Progression' %></dt><dd>+<%= usd(c.income.growth) %></dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap narrow-block">
+    <%- include('../partials/callout', { slug: 'message-to-partners' }) %>
+    <p class="center"><a class="btn" href="/contact"><%= t.contact_us %></a></p>
+  </div>
+</section>
+
+<%- include('../partials/foot') %>

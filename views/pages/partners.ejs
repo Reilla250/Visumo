@@ -1,0 +1,33 @@
+<%- include('../partials/head') %>
+
+<header class="page-title">
+  <div class="wrap">
+    <p class="eyebrow"><%= t.partners_eyebrow %></p>
+    <h1><%= t.partners_title %></h1>
+    <p class="lead"><%= t.partners_lead %></p>
+  </div>
+</header>
+
+<section class="section">
+  <div class="wrap">
+    <%- include('../partials/section-head', { n: 11 }) %>
+    <div class="prose">
+      <% c.paras[11].forEach(function (p) { %><p><%= p %></p><% }) %>
+    </div>
+    <h3><%= t.partners_table_title %></h3>
+    <div class="table-wrap">
+      <table>
+        <caption class="sr-only"><%= t.partners_table_title %></caption>
+        <thead><tr><th scope="col"><%= t.partners_actor %></th><th scope="col"><%= t.partners_contribution %></th></tr></thead>
+        <tbody>
+          <% c.stakeholders.forEach(function (r) { %>
+          <tr><th scope="row"><%= r.stakeholder_group %></th><td><%= r.contribution %></td></tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+    <p class="center"><a class="btn" href="/contact"><%= t.partners_cta %></a></p>
+  </div>
+</section>
+
+<%- include('../partials/foot') %>

@@ -1,0 +1,41 @@
+<%- include('../partials/head') %>
+
+<section class="page-title">
+  <div class="wrap">
+    <p class="eyebrow"><%= t.nav_gallery %></p>
+    <h1><%= t.gallery_title %></h1>
+    <p class="muted"><%= t.gallery_subtitle %></p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <% if (images.length === 0) { %>
+      <p class="center muted" style="padding:3rem 0"><%= t.gallery_empty %></p>
+    <% } else { %>
+      <div class="gallery-grid">
+        <% images.forEach(function (img, idx) { %>
+          <figure class="gallery-item" data-index="<%= idx %>">
+            <img src="/img/gallery/<%= img.filename %>" alt="<%= img.alt_text || img.caption %>" loading="lazy">
+            <% if (img.caption) { %>
+              <figcaption><%= img.caption %></figcaption>
+            <% } %>
+          </figure>
+        <% }) %>
+      </div>
+    <% } %>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" hidden>
+  <button class="lightbox-close" aria-label="<%= t.close %>">&times;</button>
+  <button class="lightbox-prev" aria-label="Previous">&#8249;</button>
+  <button class="lightbox-next" aria-label="Next">&#8250;</button>
+  <div class="lightbox-content">
+    <img id="lightbox-img" src="" alt="">
+    <p id="lightbox-caption"></p>
+  </div>
+</div>
+
+<%- include('../partials/foot') %>

@@ -1,0 +1,107 @@
+[
+  {
+    "section_number": 1,
+    "slug": "identity",
+    "title": "Organisational identity and profile"
+  },
+  {
+    "section_number": 2,
+    "slug": "contents",
+    "title": "Contents and evidence basis"
+  },
+  {
+    "section_number": 3,
+    "slug": "executive-summary",
+    "title": "Executive summary"
+  },
+  {
+    "section_number": 4,
+    "slug": "dashboard",
+    "title": "2025 strategic dashboard"
+  },
+  {
+    "section_number": 5,
+    "slug": "context",
+    "title": "Operating context in North Kivu"
+  },
+  {
+    "section_number": 6,
+    "slug": "theory-of-change",
+    "title": "Theory of change and programme model"
+  },
+  {
+    "section_number": 7,
+    "slug": "outreach",
+    "title": "Community outreach, SRHR information and safe referrals"
+  },
+  {
+    "section_number": 8,
+    "slug": "disability-inclusion",
+    "title": "Disability inclusion and survivor leadership"
+  },
+  {
+    "section_number": 9,
+    "slug": "indigenous-rural",
+    "title": "Indigenous/autochthonous women and rural community engagement"
+  },
+  {
+    "section_number": 10,
+    "slug": "health-communication",
+    "title": "Health communication: HIV, family planning, safe pregnancy and post-rape care"
+  },
+  {
+    "section_number": 11,
+    "slug": "partnerships",
+    "title": "Partnerships and local accountability"
+  },
+  {
+    "section_number": 12,
+    "slug": "voices",
+    "title": "Beneficiary voices: Kiswahili and French testimonies"
+  },
+  {
+    "section_number": 13,
+    "slug": "income-analysis",
+    "title": "Annual income analysis, 2021-2025"
+  },
+  {
+    "section_number": 14,
+    "slug": "income-sources",
+    "title": "Income sources and financial resilience"
+  },
+  {
+    "section_number": 15,
+    "slug": "monitoring-learning",
+    "title": "Monitoring, evaluation, accountability and learning"
+  },
+  {
+    "section_number": 16,
+    "slug": "safeguarding",
+    "title": "Safeguarding, ethics and survivor-safe documentation"
+  },
+  {
+    "section_number": 17,
+    "slug": "challenges",
+    "title": "Challenges, mitigation and lessons learned"
+  },
+  {
+    "section_number": 18,
+    "slug": "priorities-2026",
+    "title": "2026 priorities and sustainability plan"
+  },
+  {
+    "section_number": 19,
+    "slug": "annex",
+    "title": "Annex: evidence sources and document control"
+  },
+  {
+    "section_number": 20,
+    "slug": "closing-commitment",
+    "title": "Closing commitment"
+  },
+  {
+    "section_number": 21,
+    "slug": "approval",
+    "title": "Approval and certification"
+  }
+]

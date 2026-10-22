@@ -1,0 +1,68 @@
+<%- include('../partials/head') %>
+
+<header class="page-title">
+  <div class="wrap">
+    <p class="eyebrow"><%= t.nav_contact %></p>
+    <h1><% if (lang === 'en') { %>Write to us<% } else if (lang === 'sw') { %>Tuandikie<% } else { %>Écrivez-nous<% } %></h1>
+    <p class="lead"><% if (lang === 'en') { %>Donors, partners, health and protection stakeholders, and community organisations can reach us here.
+    <% } else if (lang === 'sw') { %>Wafadhili, washirika, wadau wa afya na ulinzi, na mashirika ya jamii wanaweza kuwasiliana nasi hapa.
+    <% } else { %>Les bailleurs, partenaires, acteurs de la santé et de la protection et associations communautaires peuvent nous contacter.<% } %></p>
+  </div>
+</header>
+
+<section class="section">
+  <div class="wrap two-col top">
+    <div>
+      <% if (status === 'sent') { %>
+        <div class="notice ok" role="status"><strong><%= lang === 'en' ? 'Thank you.' : lang === 'sw' ? 'Asante.' : 'Merci.' %></strong> <%= t.form_sent %></div>
+      <% } else if (status === 'ratelimited') { %>
+        <div class="notice err" role="alert"><%= t.form_ratelimited %></div>
+      <% } else if (status === 'invalid') { %>
+        <div class="notice err" role="alert"><% if (lang === 'en') { %>Please check the highlighted fields.<% } else if (lang === 'sw') { %>Tafadhali angalia sehemu zilizoangaziwa.<% } else { %>Veuillez vérifier les champs signalés.<% } %></div>
+      <% } %>
+
+      <form method="post" action="/contact" class="form" novalidate>
+        <div class="field<%= errors.full_name ? ' has-error' : '' %>">
+          <label for="full_name"><%= t.form_name %></label>
+          <input id="full_name" name="full_name" type="text" maxlength="150" required autocomplete="name" value="<%= form.full_name || '' %>">
+          <% if (errors.full_name) { %><p class="err-text"><%= errors.full_name %></p><% } %>
+        </div>
+        <div class="field<%= errors.email ? ' has-error' : '' %>">
+          <label for="email"><%= t.form_email %></label>
+          <input id="email" name="email" type="email" maxlength="200" required autocomplete="email" value="<%= form.email || '' %>">
+          <% if (errors.email) { %><p class="err-text"><%= errors.email %></p><% } %>
+        </div>
+        <div class="field">
+          <label for="organisation"><%= t.form_org %></label>
+          <input id="organisation" name="organisation" type="text" maxlength="200" autocomplete="organization" value="<%= form.organisation || '' %>">
+        </div>
+        <div class="field<%= errors.subject ? ' has-error' : '' %>">
+          <label for="subject"><%= t.form_subject %></label>
+          <input id="subject" name="subject" type="text" maxlength="200" required value="<%= form.subject || '' %>">
+          <% if (errors.subject) { %><p class="err-text"><%= errors.subject %></p><% } %>
+        </div>
+        <div class="field<%= errors.message ? ' has-error' : '' %>">
+          <label for="message"><%= t.form_message %></label>
+          <textarea id="message" name="message" rows="7" maxlength="4000" required><%= form.message || '' %></textarea>
+          <% if (errors.message) { %><p class="err-text"><%= errors.message %></p><% } %>
+        </div>
+        <div class="hp" aria-hidden="true">
+          <label for="website">Leave this empty</label>
+          <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+        </div>
+        <button class="btn" type="submit"><%= t.form_submit %></button>
+      </form>
+    </div>
+
+    <aside class="callout callout-protect" aria-label="<%= lang === 'en' ? 'Safety advice' : lang === 'sw' ? 'Ushauri wa usalama' : 'Conseil de sécurité' %>">
+      <h3><% if (lang === 'en') { %>Protect confidentiality<% } else if (lang === 'sw') { %>Kulinda usiri<% } else { %>Protégeons la confidentialité<% } %></h3>
+      <p><% if (lang === 'en') { %>Do not send names, photos, addresses, or other identifying information of survivors, children, or persons with disabilities through this form. To discuss a situation, write to us first to arrange a safe communication channel.
+      <% } else if (lang === 'sw') { %>Usitume majina, picha, anwani, au taarifa nyingine za utambulisho wa waathirika, watoto, au watu wenye ulemavu kupitia fomu hii. Ili kujadili hali fulani, tuandikie kwanza ili kupanga njia salama ya mawasiliano.
+      <% } else { %>N'envoyez pas par ce formulaire de noms, photos, adresses ou autres renseignements permettant d'identifier une survivante, un enfant ou une personne en situation de handicap. Pour parler d'une situation, écrivez-nous d'abord afin de convenir d'un moyen de communication sûr.<% } %></p>
+      <% if (contactEmail) { %><p><%= lang === 'en' ? 'You can also email us at' : lang === 'sw' ? 'Unaweza pia kutuma barua pepe' : 'Vous pouvez également écrire à' %> <a href="mailto:<%= contactEmail %>"><%= contactEmail %></a>.</p><% } %>
+      <p><strong><%= lang === 'en' ? 'Address:' : lang === 'sw' ? 'Anwani:' : 'Adresse :' %></strong> N° 15, avenue Moera, quartier Malepe, commune de Beu, Beni, Nord-Kivu, RDC.</p>
+    </aside>
+  </div>
+</section>
+
+<%- include('../partials/foot') %>

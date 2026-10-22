@@ -1,0 +1,68 @@
+<%- include('../partials/head') %>
+
+<header class="page-title">
+  <div class="wrap">
+    <p class="eyebrow"><%= t.accountability_eyebrow %></p>
+    <h1><%= t.accountability_title %></h1>
+    <p class="lead"><%= t.accountability_lead %></p>
+  </div>
+</header>
+
+<section class="section">
+  <div class="wrap">
+    <%- include('../partials/section-head', { n: 15 }) %>
+    <p class="narrow"><%= c.paras[15][0] %></p>
+    <div class="table-wrap">
+      <table>
+        <caption class="sr-only"><%= t.accountability_indicators_title %></caption>
+        <thead><tr><th scope="col"><%= t.accountability_area %></th><th scope="col"><%= t.accountability_indicator %></th><th scope="col"><%= t.accountability_data_source %></th></tr></thead>
+        <tbody>
+          <% c.indicators.forEach(function (r) { %>
+          <tr><th scope="row"><%= r.area %></th><td><%= r.indicator %></td><td><%= r.data_source %></td></tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+    <%- include('../partials/callout', { slug: 'learning-rhythm' }) %>
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="wrap">
+    <%- include('../partials/section-head', { n: 16 }) %>
+    <p class="narrow"><%= c.paras[16][0] %></p>
+    <div class="table-wrap">
+      <table>
+        <caption class="sr-only"><%= t.accountability_risks_title %></caption>
+        <thead><tr><th scope="col"><%= t.accountability_risk %></th><th scope="col"><%= t.accountability_action %></th></tr></thead>
+        <tbody>
+          <% c.risks.forEach(function (r) { %>
+          <tr><th scope="row"><%= r.risk %></th><td><%= r.action_taken %></td></tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+    <%- include('../partials/callout', { slug: 'ethical-photography' }) %>
+    <%- include('../partials/callout', { slug: 'image-use-note' }) %>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <%- include('../partials/section-head', { n: 17 }) %>
+    <p class="narrow"><%= c.paras[17][0] %></p>
+    <div class="table-wrap">
+      <table>
+        <caption class="sr-only"><%= t.accountability_challenges_title %></caption>
+        <thead><tr><th scope="col"><%= t.accountability_challenge %></th><th scope="col"><%= t.accountability_mitigation %></th><th scope="col"><%= t.accountability_lesson %></th></tr></thead>
+        <tbody>
+          <% c.challenges.forEach(function (r) { %>
+          <tr><th scope="row"><%= r.challenge %></th><td><%= r.mitigation %></td><td><%= r.lesson %></td></tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/foot') %>

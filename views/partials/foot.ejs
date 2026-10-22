@@ -1,0 +1,38 @@
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="footer-logo" href="/" aria-label="VISUMO — <%= t.nav_home %>">
+        <img src="/img/visumo-mark.png" alt="" width="52" height="52">
+        <span class="footer-brand"><%= t.hero_eyebrow %> <strong>VISUMO</strong></span>
+      </a>
+      <p><%= c.settings.tagline %></p>
+      <p class="motto"><%= c.settings.sw_motto %></p>
+    </div>
+    <div>
+      <p class="footer-h"><%= t.footer_discover %></p>
+      <ul class="footer-links">
+        <li><a href="/about"><%= t.footer_about_link %></a></li>
+        <li><a href="/programmes"><%= t.footer_programmes_link %></a></li>
+        <li><a href="/voices"><%= t.nav_testimonies %></a></li>
+        <li><a href="/partners"><%= t.footer_partners_link %></a></li>
+        <li><a href="/finance"><%= t.footer_finance_link %></a></li>
+        <li><a href="/report"><%= t.footer_report_link %></a></li>
+        <li><a href="/gallery"><%= t.nav_gallery %></a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-h"><%= t.footer_talk %></p>
+      <p><%= c.settings.org_full_name %></p>
+      <% if (contactEmail) { %><p><a class="footer-email" href="mailto:<%= contactEmail %>"><%= contactEmail %></a></p><% } %>
+      <p class="small footer-address">N° 15, avenue Moera, quartier Malepe, commune de Beu, Beni, Nord-Kivu, RDC</p>
+      <p><a class="footer-contact-link" href="/contact"><%= t.footer_write %> <span aria-hidden="true">→</span></a></p>
+    </div>
+  </div>
+  <div class="wrap footer-base">
+    <p><%= c.settings.footer_note %> <span aria-hidden="true">·</span> <%= t.nav_report %> : <%= c.settings.reporting_period %></p>
+    <a href="/report"><%= t.footer_docs %></a>
+  </div>
+</footer>
+</body>
+</html>

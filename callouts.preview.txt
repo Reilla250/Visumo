@@ -1,0 +1,82 @@
+[
+  {
+    "slug": "communications-rule",
+    "heading": "Communications rule",
+    "body": "Every VISUMO poster answers three questions clearly: What is the service? Why does it matter? Where can a woman safely ask for guidance?"
+  },
+  {
+    "slug": "dignity-messages",
+    "heading": "Community dignity messages",
+    "body": "French: «Femmes autochtones, femmes rurales, femmes en situation de handicap: vos droits, votre santé, votre dignité.»\nKiswahili: “Wanawake wa asili na wa vijijini: afya, haki na heshima.”"
+  },
+  {
+    "slug": "ethical-photography",
+    "heading": "Ethical photography rule",
+    "body": "VISUMO uses images publicly only when the people shown have consented, understand the purpose and are not placed at risk because of the topic or setting."
+  },
+  {
+    "slug": "evidence-note",
+    "heading": "Evidence note",
+    "body": "Audited 2024 and 2025 income figures are drawn from VISUMO UBT audited financial statements. The 2021-2023 comparative figures are drawn from internal financial records for trend context and are presented in exact USD, not rounded thousands."
+  },
+  {
+    "slug": "external-sharing",
+    "heading": "External sharing note",
+    "body": "This report may be shared with donors, partners, community stakeholders and VISUMO governance bodies together with relevant registration, programme and audited financial documents when requested."
+  },
+  {
+    "slug": "financial-message",
+    "heading": "Financial message",
+    "body": "VISUMO presents financial information in exact USD amounts, not rounded thousands, to show transparency and donor-facing precision."
+  },
+  {
+    "slug": "guiding-principle",
+    "heading": "Guiding principle",
+    "body": "No survivor is denied dignity because she is poor, displaced, indigenous, disabled, HIV-affected, pregnant from violence or afraid to speak publicly."
+  },
+  {
+    "slug": "identity-statement",
+    "heading": "Identity statement",
+    "body": "VISUMO is positioned in this report as a local, survivor-led and community-rooted organisation. Its legitimacy comes from both legal registration and day-to-day trust with women, indigenous/autochthonous communities and survivors who are often excluded from formal systems."
+  },
+  {
+    "slug": "image-use-note",
+    "heading": "Image-use note",
+    "body": "VISUMO applies consent, confidentiality and survivor-safety principles to all photos and visual materials used for organisational reporting, partner communication and community accountability. Images are used only when they do not expose survivors, children or people with disabilities to stigma, retaliation or other protection risks."
+  },
+  {
+    "slug": "learning-rhythm",
+    "heading": "Learning rhythm",
+    "body": "Quarterly reflection meetings with peer advocates review what is changing, what remains unsafe and which advocacy message needs adjustment."
+  },
+  {
+    "slug": "message-to-partners",
+    "heading": "2025 message to partners",
+    "body": "VISUMO is locally rooted, legally recognised, financially traceable, survivor-led and ready to strengthen disability-inclusive SRHR advocacy in North Kivu."
+  },
+  {
+    "slug": "protection-note",
+    "heading": "Protection note",
+    "body": "The testimonies below are anonymised and composite-style statements prepared for safe reporting. VISUMO uses them only in non-identifying form unless written informed consent has been provided."
+  },
+  {
+    "slug": "quality-assurance",
+    "heading": "Quality assurance note",
+    "body": "This report has been checked for consistency of DRC/North Kivu positioning, financial figures, disability inclusion, indigenous/autochthonous framing, ethics language and visual presentation. VISUMO will continue validating annual M&E results through its internal monitoring and accountability system."
+  },
+  {
+    "slug": "report-focus",
+    "heading": "Report focus",
+    "body": "This report presents VISUMO as a survivor-led, locally rooted organisation working with women and girls affected by violence, displacement, disability exclusion and SRHR stigma in North Kivu. It provides annual income information for 2021-2025 in exact USD amounts and presents programme identity, accountability, learning and readiness for continued SRHR advocacy."
+  },
+  {
+    "slug": "report-focus-2025",
+    "heading": "2025 report focus",
+    "body": "The report presents VISUMO's 2021-2025 income trend, bilingual beneficiary testimonies, indigenous/community framing, ethics language, donor-facing tables and graphics, and the organisation's readiness to strengthen disability-inclusive SRHR accountability in North Kivu."
+  },
+  {
+    "slug": "sustainability-statement",
+    "heading": "Sustainability statement",
+    "body": "By strengthening peer advocates, accessible tools, local commitments and financial systems, VISUMO can continue survivor-led SRHR advocacy beyond a single funding cycle."
+  }
+]

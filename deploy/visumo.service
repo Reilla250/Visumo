@@ -1,0 +1,31 @@
+# systemd unit for running the site WITHOUT Docker.
+# Install:
+#   sudo cp deploy/visumo.service /etc/systemd/system/visumo.service
+#   sudo systemctl daemon-reload && sudo systemctl enable --now visumo
+#   sudo journalctl -u visumo -f
+# Assumes the site is in /opt/visumo-website with a filled-in .env and `npm ci --omit=dev` already run.
+
+[Unit]
+Description=VISUMO website
+After=network-online.target postgresql.service mysql.service mariadb.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/opt/visumo-website
+EnvironmentFile=/opt/visumo-website/.env
+Environment=NODE_ENV=production
+ExecStart=/usr/bin/node server.js
+Restart=always
+RestartSec=3
+
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+ReadWritePaths=/opt/visumo-website
+
+[Install]
+WantedBy=multi-user.target

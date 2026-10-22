@@ -1,0 +1,63 @@
+# VISUMO website + MySQL 8.0, database pre-loaded with the report content.
+#
+#   cp .env.example .env        # then edit passwords (also set DB_ROOT_PASSWORD)
+#   docker compose -f docker-compose.mysql.yml up -d --build
+#
+# The SQL file in database/mysql is imported automatically the FIRST time the
+# database volume is created. To re-import from scratch:
+#   docker compose -f docker-compose.mysql.yml down -v   (DELETES all data, incl. contact messages)
+
+name: visumo-mysql
+
+services:
+  db:
+    image: mysql:8.0
+    restart: unless-stopped
+    # mysql_native_password keeps compatibility with every client and admin tool on MySQL 8.0
+    command: >
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+      --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_DATABASE: ${DB_NAME:-visumo}
+      MYSQL_USER: ${DB_USER:-visumo}
+      MYSQL_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in .env}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:?Set DB_ROOT_PASSWORD in .env}
+    volumes:
+      - mysqldata:/var/lib/mysql
+      - ./database/mysql/visumo_mysql_full.sql:/docker-entrypoint-initdb.d/01-visumo.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u root -p$$MYSQL_ROOT_PASSWORD --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 30s
+
+  web:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      HOST: 0.0.0.0
+      DB_CLIENT: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_NAME: ${DB_NAME:-visumo}
+      DB_USER: ${DB_USER:-visumo}
+      DB_PASSWORD: ${DB_PASSWORD}
+      SITE_URL: ${SITE_URL:-http://localhost:3000}
+      TRUST_PROXY: ${TRUST_PROXY:-}
+      FORCE_HTTPS: ${FORCE_HTTPS:-false}
+      CONTACT_EMAIL: ${CONTACT_EMAIL:-visumoadm@gmail.com}
+      ADMIN_USER: ${ADMIN_USER:-admin}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-}
+      CACHE_TTL_SECONDS: ${CACHE_TTL_SECONDS:-60}
+    ports:
+      - "${WEB_BIND:-0.0.0.0}:${WEB_PORT:-3000}:3000"
+
+volumes:
+  mysqldata:

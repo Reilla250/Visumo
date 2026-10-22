@@ -1,0 +1,100 @@
+<%- include('../partials/head') %>
+
+<header class="page-title">
+  <div class="wrap">
+    <p class="eyebrow"><%= t.about_eyebrow %></p>
+    <h1><%= t.about_title %></h1>
+    <p class="lead"><%= c.paras[1][0] %></p>
+  </div>
+</header>
+
+<section class="section">
+  <div class="wrap prose">
+    <%- include('../partials/section-head', { n: 3 }) %>
+    <% c.paras[3].forEach(function (p) { %><p><%= p %></p><% }) %>
+    <%- include('../partials/callout', { slug: 'message-to-partners' }) %>
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="wrap">
+    <%- include('../partials/section-head', { n: 1 }) %>
+    <div class="table-wrap">
+      <table>
+        <caption class="sr-only"><%= t.about_profile_caption %></caption>
+        <thead><tr><th scope="col"><%= t.about_profile_element %></th><th scope="col"><%= t.about_profile_details %></th></tr></thead>
+        <tbody>
+          <% c.profile.forEach(function (r) { %>
+          <tr><th scope="row"><%= r.element %></th><td><%= r.details %></td></tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+    <p class="narrow"><%= c.paras[1][1] %></p>
+    <%- include('../partials/callout', { slug: 'identity-statement' }) %>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <%- include('../partials/section-head', { n: 4 }) %>
+    <%- include('../partials/figure', { file: 'dashboard.png', cls: 'figure-wide' }) %>
+    <div class="table-wrap">
+      <table>
+        <caption class="sr-only"><%= t.about_dashboard_caption %></caption>
+        <thead><tr><th scope="col"><%= t.about_dashboard_area %></th><th scope="col"><%= t.about_dashboard_position %></th></tr></thead>
+        <tbody>
+          <% c.dashboard.forEach(function (r) { %>
+          <tr><th scope="row"><%= r.area %></th><td><%= r.position_text %></td></tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+    <%- include('../partials/callout', { slug: 'report-focus-2025' }) %>
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="wrap">
+    <%- include('../partials/section-head', { n: 5 }) %>
+    <div class="two-col top">
+      <div class="prose">
+        <% c.paras[5].forEach(function (p) { %><p><%= p %></p><% }) %>
+      </div>
+      <%- include('../partials/figure', { file: 'community-solidarity.jpg' }) %>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <%- include('../partials/section-head', { n: 6 }) %>
+    <p class="narrow"><%= c.paras[6][0] %></p>
+    <div class="table-wrap">
+      <table>
+        <caption class="sr-only"><%= lang === 'en' ? 'Theory of Change' : lang === 'sw' ? 'Nadharia ya Mabadiliko' : 'Théorie du changement' %></caption>
+        <thead><tr><th scope="col"><%= lang === 'en' ? 'Logic level' : lang === 'sw' ? 'Kiwango cha Kimantiki' : 'Niveau logique' %></th><th scope="col"><%= lang === 'en' ? 'VISUMO model' : lang === 'sw' ? 'Mfumo wa VISUMO' : 'Modèle VISUMO' %></th></tr></thead>
+        <tbody>
+          <% c.theory.forEach(function (r) { %>
+          <tr><th scope="row"><%= r.logic_level %></th><td><%= r.model_text %></td></tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+    <%- include('../partials/callout', { slug: 'guiding-principle' }) %>
+    <h3><%= lang === 'en' ? 'Our operational assumptions' : lang === 'sw' ? 'Dhana zetu za utendaji' : 'Nos hypothèses de travail' %></h3>
+    <div class="table-wrap">
+      <table>
+        <caption class="sr-only"><%= lang === 'en' ? 'Operational assumptions' : lang === 'sw' ? 'Dhana za utendaji' : 'Hypothèses de travail' %></caption>
+        <thead><tr><th scope="col"><%= lang === 'en' ? 'Assumption' : lang === 'sw' ? 'Dhana' : 'Hypothèse' %></th><th scope="col"><%= lang === 'en' ? 'VISUMO practical application' : lang === 'sw' ? 'Utekelezaji halisi na VISUMO' : 'Mise en pratique par VISUMO' %></th></tr></thead>
+        <tbody>
+          <% c.assumptions.forEach(function (r) { %>
+          <tr><th scope="row"><%= r.assumption %></th><td><%= r.application %></td></tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/foot') %>

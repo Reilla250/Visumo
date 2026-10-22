@@ -1,0 +1,10 @@
+<%
+  const co = c.call[slug];
+  const protect = ['protection-note', 'ethical-photography', 'image-use-note'].includes(slug);
+  if (co) {
+%>
+<aside class="callout<%= protect ? ' callout-protect' : '' %>" aria-label="<%= co.heading %>">
+  <h3><%= co.heading %></h3>
+  <% co.body.split('\n').forEach(function (line) { %><p><%= line %></p><% }) %>
+</aside>
+<% } %>

@@ -1,0 +1,78 @@
+<%- include('../partials/head') %>
+
+<header class="page-title">
+  <div class="wrap">
+    <p class="eyebrow"><%= t.finance_eyebrow %></p>
+    <h1><%= t.finance_title %></h1>
+    <p class="lead"><%= t.finance_lead %></p>
+  </div>
+</header>
+
+<section class="section">
+  <div class="wrap">
+    <%- include('../partials/section-head', { n: 13 }) %>
+    <dl class="big-numbers">
+      <div><dt><%= t.finance_rev_2024 %></dt><dd><%= usd(c.income.byYear[2024].amount) %></dd></div>
+      <div><dt><%= t.finance_rev_2025 %></dt><dd><%= usd(c.income.byYear[2025].amount) %></dd></div>
+      <div class="accent"><dt><%= t.finance_growth %></dt><dd>+<%= usd(c.income.growth) %></dd></div>
+    </dl>
+
+    <div class="chart-card"><%- incomeChart %></div>
+    <p class="small muted"><%= t.finance_chart1_note %></p>
+
+    <div class="table-wrap">
+      <table class="num">
+        <caption class="sr-only"><%= t.finance_eyebrow %> 2021-2025</caption>
+        <thead><tr><th scope="col"><%= t.finance_table1_year %></th><th scope="col" class="r"><%= t.finance_table1_rev %></th><th scope="col"><%= t.finance_table1_source %></th></tr></thead>
+        <tbody>
+          <% c.income.years.forEach(function (y) { %>
+          <tr><th scope="row"><%= y.year %></th><td class="r"><%= usd(y.amount) %></td><td><%= y.basis %></td></tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+    <p class="narrow"><%= c.paras[13][0] %></p>
+    <%- include('../partials/callout', { slug: 'evidence-note' }) %>
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="wrap">
+    <%- include('../partials/section-head', { n: 14 }) %>
+    <div class="chart-card"><%- sourceChart %></div>
+    <p class="small muted"><%= t.finance_chart2_note %></p>
+
+    <div class="table-wrap">
+      <table class="num">
+        <caption class="sr-only"><%= t.finance_chart2_note %></caption>
+        <thead><tr><th scope="col"><%= t.finance_table2_source %></th><th scope="col" class="r">2024 (<%= lang === 'en' ? 'audited' : lang === 'sw' ? 'imekaguliwa' : 'audité' %>)</th><th scope="col" class="r">2025 (<%= lang === 'en' ? 'audited' : lang === 'sw' ? 'imekaguliwa' : 'audité' %>)</th><th scope="col" class="r"><%= t.finance_table2_change %></th></tr></thead>
+        <tbody>
+          <% c.income.sources.forEach(function (s) { %>
+          <tr>
+            <th scope="row"><%= s.name %></th>
+            <td class="r"><%= usd(s.y2024) %></td>
+            <td class="r"><%= usd(s.y2025) %></td>
+            <td class="r <%= s.change >= 0 ? 'up' : 'down' %>"><%= signed(s.change) %></td>
+          </tr>
+          <% }) %>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th scope="row"><%= t.finance_total_audited %></th>
+            <td class="r"><%= usd(c.income.sourceTotals.y2024) %></td>
+            <td class="r"><%= usd(c.income.sourceTotals.y2025) %></td>
+            <td class="r <%= c.income.sourceTotals.change >= 0 ? 'up' : 'down' %>"><%= signed(c.income.sourceTotals.change) %></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    <p class="narrow"><%= c.paras[14][0] %></p>
+    <%- include('../partials/callout', { slug: 'financial-message' }) %>
+    <p class="center">
+      <a class="btn btn-ghost" href="/api/income"><%= lang === 'en' ? 'Financial Data (JSON)' : lang === 'sw' ? 'Takwimu za Fedha (JSON)' : 'Données financières (JSON)' %></a>
+      <a class="btn" href="/report"><%= lang === 'en' ? 'Full Report & Audit References' : lang === 'sw' ? 'Ripoti Kamili na Marejeleo ya Ukaguzi' : 'Rapport complet et références d’audit' %></a>
+    </p>
+  </div>
+</section>
+
+<%- include('../partials/foot') %>
