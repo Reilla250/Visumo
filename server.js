@@ -528,10 +528,11 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(compression());
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: '7d', index: false }));
 
-// Mocking required localized strings and site properties so layouts don't crash
+// This block forces dummy text into your templates so your views don't throw a 500 error
 app.use((req, res, next) => {
   res.locals.t = {
     hero_eyebrow: "VISUMO",
+    hero_headline: "Mères survivantes de violences",
     page_about_title: "A propos",
     page_programmes_title: "Programmes",
     page_partners_title: "Partenaires",
@@ -544,7 +545,7 @@ app.use((req, res, next) => {
     gallery_title: "Galerie"
   };
   res.locals.c = {
-    settings: { tagline: "Site Web VISUMO" },
+    settings: { tagline: "Site Web VISUMO", hero_headline: "VISUMO" },
     income: { years: [], sources: [] }
   };
   res.locals.path = req.path;
@@ -555,14 +556,12 @@ app.use((req, res, next) => {
   res.locals.contactEmail = 'visumoadm@gmail.com';
   res.locals.year = new Date().getFullYear();
   
-  // Custom mock formatting functions to handle layout templates
   res.locals.fmt = (n) => String(n);
   res.locals.usd = (n) => `USD ${n}`;
   res.locals.signed = (n) => String(n);
   next();
 });
 
-// Clean routes mapping to your existing views directory layout
 const page = (view) => (req, res) => res.render(`pages/${view}`, { active: view });
 
 app.get('/', (req, res) => res.render('pages/home', { active: 'home' }));
@@ -578,4 +577,3 @@ app.get('/gallery', (req, res) => res.render('pages/gallery', { active: 'gallery
 app.get('/contact', (req, res) => res.render('pages/contact', { active: 'contact', status: '', form: {}, errors: {} }));
 
 module.exports = app;
-
