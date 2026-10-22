@@ -88,3 +88,4 @@ run `python3 database/tools/generate_seed.py`, and re-import (this resets the da
   add up exactly to the audited annual totals.
 - The report's dashboard graphic labels the "10" tile as *local commitments*, while the annex says *10 trainers*. The
   site follows the written annex (10 trainers). Change it in `project_design_figures` if the graphic is correct.
+"# Visumo" 
