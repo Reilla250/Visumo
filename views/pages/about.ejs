@@ -8,7 +8,27 @@
   </div>
 </header>
 
+<!-- ===== REGISTERED NAME (from official certificate) ===== -->
 <section class="section">
+  <div class="wrap prose">
+    <p class="eyebrow"><%= lang === 'en' ? 'Official registered name' : lang === 'sw' ? 'Jina rasmi lililosajiliwa' : 'Dénomination officielle enregistrée' %></p>
+    <h2><%= lang === 'en' ? 'Our founding name' : lang === 'sw' ? 'Jina letu la mwanzilishi' : 'Notre dénomination de fondation' %></h2>
+    <div class="about-cert-box">
+      <p class="about-cert-name">VIOLENCE SURVIVORS MOTHERS LIVING WITH HIV<br>«&nbsp;VISUMO&#8209;LWHIV&nbsp;»</p>
+      <p class="about-cert-meta">
+        <%= lang === 'en'
+          ? 'Registered under Attestation d\'Enregistrement N° 0241/DIVAS/N-K/AS/64/2018, issued on 21 July 2018 by the Division Provinciale des Affaires Sociales et de Solidarité Nationale du Nord-Kivu (B.P. 405 Goma), République Démocratique du Congo.'
+          : lang === 'sw'
+          ? 'Imesajiliwa chini ya Attestation d\'Enregistrement N° 0241/DIVAS/N-K/AS/64/2018, iliyotolewa tarehe 21 Julai 2018 na Idara ya Mkoa ya Masuala ya Kijamii na Umoja wa Kitaifa wa Nord-Kivu (B.P. 405 Goma), Jamhuri ya Kidemokrasia ya Kongo.'
+          : 'Enregistrée sous l\'Attestation d\'Enregistrement N° 0241/DIVAS/N-K/AS/64/2018, délivrée le 21 juillet 2018 par la Division Provinciale des Affaires Sociales et de Solidarité Nationale du Nord-Kivu (B.P. 405 Goma), République Démocratique du Congo.'
+        %>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WHO WE ARE ===== -->
+<section class="section alt">
   <div class="wrap prose">
     <%- include('../partials/section-head', { n: 3 }) %>
     <% c.paras[3].forEach(function (p) { %><p><%= p %></p><% }) %>
@@ -16,6 +36,72 @@
   </div>
 </section>
 
+<!-- ===== PRIVACY, DIGNITY & ANTI-STIGMA POLICY ===== -->
+<section class="section">
+  <div class="wrap prose">
+    <p class="eyebrow">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <%= lang === 'en' ? 'Privacy & Dignity Policy' : lang === 'sw' ? 'Sera ya Faragha na Utu' : 'Politique de confidentialité et de dignité' %>
+    </p>
+    <h2><%= lang === 'en' ? 'No images of people living with HIV — Fighting STIGMA' : lang === 'sw' ? 'Hakuna picha za watu wanaoishi na VVU — Kupambana na UNYANYAPAA' : 'Aucune image de personnes vivant avec le VIH — Lutter contre la STIGMATISATION' %></h2>
+
+    <div class="callout callout-protect about-stigma-box">
+      <h3>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <%= lang === 'en' ? 'Image and identity protection' : lang === 'sw' ? 'Ulinzi wa picha na utambulisho' : 'Protection des images et de l\'identité' %>
+      </h3>
+      <p>
+        <% if (lang === 'en') { %>
+          <strong>This website does not publish photographs or images of people living with HIV.</strong>
+          We do not display the names, faces, or any identifying information of beneficiaries, survivors, or community members who are living with HIV. This is a firm commitment to protect their dignity, safety, and confidentiality in all circumstances.
+        <% } else if (lang === 'sw') { %>
+          <strong>Tovuti hii haichapishi picha au taswira za watu wanaoishi na VVU.</strong>
+          Hatuonyeshi majina, nyuso, au taarifa yoyote inayotambulisha ya wanufaika, waathirika, au wanajamii wanaoishi na VVU. Hii ni ahadi ya kudumu ya kulinda utu wao, usalama, na usiri katika hali zote.
+        <% } else { %>
+          <strong>Ce site web ne publie aucune photographie ni image de personnes vivant avec le VIH.</strong>
+          Nous n'affichons pas les noms, visages ou informations permettant d'identifier des bénéficiaires, survivantes ou membres de la communauté vivant avec le VIH. Il s'agit d'un engagement ferme pour protéger leur dignité, leur sécurité et leur confidentialité en toutes circonstances.
+        <% } %>
+      </p>
+      <p>
+        <% if (lang === 'en') { %>
+          <strong>Names of people living with HIV are never disclosed.</strong>
+          In all our communications, reports, testimonies, and materials, individuals living with HIV are never identified by name, photo, or any other detail that could lead to their identification. Anonymization is applied systematically to protect every person we support.
+        <% } else if (lang === 'sw') { %>
+          <strong>Majina ya watu wanaoishi na VVU hayafichuliwi kamwe.</strong>
+          Katika mawasiliano yetu yote, ripoti, ushuhuda, na nyenzo, watu wanaoishi na VVU hawatambuliwi kamwe kwa jina, picha, au maelezo mengine yanayoweza kusaidia kutambulika kwao. Ufichiaji wa jina unafanywa kwa utaratibu ili kulinda kila mtu tunayemsaidia.
+        <% } else { %>
+          <strong>Les noms des personnes vivant avec le VIH ne sont jamais divulgués.</strong>
+          Dans toutes nos communications, rapports, témoignages et supports, les personnes vivant avec le VIH ne sont jamais identifiées par leur nom, photo ou tout autre détail pouvant conduire à leur identification. L'anonymisation est appliquée systématiquement pour protéger chaque personne que nous accompagnons.
+        <% } %>
+      </p>
+    </div>
+
+    <!-- ANTI-STIGMA PARAGRAPH -->
+    <div class="about-antistigma">
+      <h3 class="about-antistigma-title">
+        <span class="about-antistigma-icon" aria-hidden="true">✊</span>
+        <%= lang === 'en' ? 'VISUMO stands firmly against STIGMA' : lang === 'sw' ? 'VISUMO inasimama imara dhidi ya UNYANYAPAA' : 'VISUMO s\'engage fermement contre la STIGMATISATION' %>
+      </h3>
+      <p>
+        <% if (lang === 'en') { %>
+          HIV-related stigma is one of the greatest barriers to health, dignity, and social inclusion for survivors and their families. VISUMO is committed to <strong>actively avoiding and preventing all forms of stigma</strong> related to HIV in our programmes, communications, and community activities.
+          We educate communities about the realities of HIV so that affected persons are treated with the full respect and dignity they deserve. We challenge discriminatory attitudes, harmful stereotypes, and any language or behaviour that excludes, isolates, or demeans people living with HIV.
+          <strong>Stigma kills — let us fight it together.</strong> By breaking the silence and promoting compassionate, rights-based responses, we help create communities where everyone — regardless of their health status — can live with dignity, safety, and hope.
+        <% } else if (lang === 'sw') { %>
+          Unyanyapaa unaohusiana na VVU ni moja ya vikwazo vikubwa zaidi kwa afya, utu, na ujumuishaji wa kijamii kwa waathirika na familia zao. VISUMO imejitolea <strong>kuepuka kikamilifu na kuzuia aina zote za unyanyapaa</strong> unaohusiana na VVU katika programu zetu, mawasiliano, na shughuli za jamii.
+          Tunaelimisha jamii kuhusu ukweli wa VVU ili watu walioathirika watibiwe kwa heshima na utu wanaoistahili. Tunakabiliana na mitazamo ya kibaguzi, dhana potofu za kudhuru, na lugha yoyote au tabia inayotenga, kutengwa, au kudhalilisha watu wanaoishi na VVU.
+          <strong>Unyanyapaa unaua — tuupigane pamoja.</strong> Kwa kuvunja ukimya na kukuza majibu ya huruma yanayozingatia haki, tunasaidia kuunda jamii ambapo kila mtu — bila kujali hali yake ya kiafya — anaweza kuishi kwa utu, usalama, na tumaini.
+        <% } else { %>
+          La stigmatisation liée au VIH constitue l'un des plus grands obstacles à la santé, à la dignité et à l'inclusion sociale pour les survivantes et leurs familles. VISUMO s'engage à <strong>éviter et prévenir activement toutes les formes de stigmatisation</strong> liées au VIH dans nos programmes, communications et activités communautaires.
+          Nous sensibilisons les communautés aux réalités du VIH afin que les personnes concernées soient traitées avec tout le respect et la dignité qu'elles méritent. Nous combattons les attitudes discriminatoires, les stéréotypes nuisibles ainsi que tout langage ou comportement qui exclut, isole ou rabaisse les personnes vivant avec le VIH.
+          <strong>La stigmatisation tue — combattons-la ensemble.</strong> En brisant le silence et en promouvant des réponses fondées sur la compassion et les droits, nous contribuons à créer des communautés où chacun — quelle que soit sa situation de santé — peut vivre dans la dignité, la sécurité et l'espoir.
+        <% } %>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ORG PROFILE TABLE ===== -->
 <section class="section alt">
   <div class="wrap">
     <%- include('../partials/section-head', { n: 1 }) %>
