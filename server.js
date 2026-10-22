@@ -1,4 +1,4 @@
-'use strict';
+/*'use strict';
 require('dotenv').config();
 
 const path = require('path');
@@ -507,10 +507,75 @@ if (require.main === module) {
   const shutdown = async () => {
     server.close();
     try { await db.pool.end(); } catch (e) { /* ignore */ }
-    process.exit(0);
+   // process.exit(0);
+ // };
+ // process.on('SIGTERM', shutdown);
+  //process.on('SIGINT', shutdown);
+//}
+
+//module.exports = app;
+'use strict';
+const path = require('path');
+const express = require('express');
+const compression = require('compression');
+
+const app = express();
+
+app.disable('x-powered-by');
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
+app.use(compression());
+app.use(express.static(path.join(__dirname, 'public'), { maxAge: '7d', index: false }));
+
+// Mocking required localized strings and site properties so layouts don't crash
+app.use((req, res, next) => {
+  res.locals.t = {
+    hero_eyebrow: "VISUMO",
+    page_about_title: "A propos",
+    page_programmes_title: "Programmes",
+    page_partners_title: "Partenaires",
+    page_voices_title: "Témoignages",
+    page_finance_title: "Finances",
+    page_accountability_title: "Responsabilité",
+    page_priorities_title: "Priorités 2026",
+    page_report_title: "Rapport Annuel",
+    page_contact_title: "Contact",
+    gallery_title: "Galerie"
   };
-  process.on('SIGTERM', shutdown);
-  process.on('SIGINT', shutdown);
-}
+  res.locals.c = {
+    settings: { tagline: "Site Web VISUMO" },
+    income: { years: [], sources: [] }
+  };
+  res.locals.path = req.path;
+  res.locals.noindex = false;
+  res.locals.title = 'VISUMO';
+  res.locals.description = 'Mères survivantes de violences';
+  res.locals.assetV = '1.0';
+  res.locals.contactEmail = 'visumoadm@gmail.com';
+  res.locals.year = new Date().getFullYear();
+  
+  // Custom mock formatting functions to handle layout templates
+  res.locals.fmt = (n) => String(n);
+  res.locals.usd = (n) => `USD ${n}`;
+  res.locals.signed = (n) => String(n);
+  next();
+});
+
+// Clean routes mapping to your existing views directory layout
+const page = (view) => (req, res) => res.render(`pages/${view}`, { active: view });
+
+app.get('/', (req, res) => res.render('pages/home', { active: 'home' }));
+app.get('/about', page('about'));
+app.get('/programmes', page('programmes'));
+app.get('/partners', page('partners'));
+app.get('/voices', page('voices'));
+app.get('/finance', (req, res) => res.render('pages/finance', { active: 'impact', incomeChart: '', sourceChart: '' }));
+app.get('/accountability', page('accountability'));
+app.get('/2026', page('priorities'));
+app.get('/report', page('report'));
+app.get('/gallery', (req, res) => res.render('pages/gallery', { active: 'gallery', images: [] }));
+app.get('/contact', (req, res) => res.render('pages/contact', { active: 'contact', status: '', form: {}, errors: {} }));
 
 module.exports = app;
+
