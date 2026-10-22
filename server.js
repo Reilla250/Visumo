@@ -78,18 +78,19 @@ app.locals.year = new Date().getFullYear();
 
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: '7d', index: false }));
 
-// -- i18n middleware (must come before routes) -----------------------------------------
-app.use(i18nMiddleware);
+// -- Content middleware (Temporary Mock for Vercel Preview) -----------------------------
+app.use((req, res, next) => {
+  res.locals.c = {
+    settings: { tagline: "VISUMO website" },
+    income: { years: [], sources: [] }
+  };
+  res.locals.path = req.path;
+  res.locals.noindex = false;
+  res.locals.title = '';
+  res.locals.description = "Website for Violence Survivors Mothers (VISUMO)";
+  next();
+});
 
-// -- Content middleware ----------------------------------------------------------------
-app.use(async (req, res, next) => {
-  try {
-    res.locals.c = await getContent();
-    res.locals.path = req.path;
-    res.locals.noindex = false;
-    res.locals.title = '';
-    res.locals.description = res.locals.c.settings.tagline;
-    next();
   } catch (err) {
     next(err);
   }
