@@ -240,7 +240,7 @@ async function adminAuth(req, res, next) {
   }
 
   // 2. Check Basic Auth (fallback)
-  const pass = process.env.ADMIN_PASSWORD || 'visumo2025admin';
+  const pass = process.env.ADMIN_PASSWORD || '';
   const header = req.headers.authorization || '';
   const [scheme, encoded] = header.split(' ');
   if (scheme === 'Basic' && encoded) {
@@ -309,7 +309,7 @@ app.post('/admin/login', async (req, res) => {
     const rows = await db.query('SELECT username FROM admin_users WHERE username = ? AND password_hash = ?', [username, hash]);
 
     const envUser = process.env.ADMIN_USER || 'admin';
-    const envPass = process.env.ADMIN_PASSWORD || 'visumo2025admin';
+    const envPass = process.env.ADMIN_PASSWORD || '';
     const isEnvMatch = (username === envUser && password === envPass);
 
     if ((rows && rows.length > 0) || isEnvMatch) {
