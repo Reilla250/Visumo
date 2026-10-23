@@ -167,7 +167,7 @@ If `/healthz` returns an error, check that the TiDB hostname, exact username, pa
 
 ### Updating the site after deployment
 
-Push code changes to the connected GitHub branch and Vercel deploys them. Text and report content are stored in TiDB and can be edited through SQL; the site caches content for 60 seconds. Contact messages are stored in TiDB and remain after redeployment. Gallery images already in `public/img/gallery` are deployed with the site. New gallery photos must be added to that folder in Git and pushed; Vercel's function filesystem is temporary, so the admin upload form is replaced with instructions on Vercel.
+Push code changes to the connected GitHub branch and Vercel deploys them. Text and report content are stored in TiDB and can be edited through SQL; the site caches content for 60 seconds. Contact messages and gallery photos uploaded through the admin dashboard are stored in TiDB and remain after redeployment. Gallery images already in `public/img/gallery` are deployed with the site.
 
 For a separate Linux or Docker deployment, see [DEPLOYMENT.md](DEPLOYMENT.md).
 

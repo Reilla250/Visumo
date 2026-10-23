@@ -47,26 +47,30 @@ app.use(compression());
 app.use(express.urlencoded({ extended: false, limit: '20kb' }));
 
 // -- Multer for gallery uploads --------------------------------------------------------
-const GALLERY_DIR = path.join(__dirname, 'public', 'img', 'gallery');
-if (process.env.VERCEL !== '1' && !fs.existsSync(GALLERY_DIR)) fs.mkdirSync(GALLERY_DIR, { recursive: true });
-
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, GALLERY_DIR),
-  filename: (req, file, cb) => {
-    const ext = path.extname(file.originalname).toLowerCase();
-    const name = `gallery-${Date.now()}-${Math.random().toString(36).slice(2, 8)}${ext}`;
-    cb(null, name);
-  },
-});
 const upload = multer({
-  storage,
-  limits: { fileSize: 8 * 1024 * 1024 },
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 4 * 1024 * 1024 },
   fileFilter: (req, file, cb) => {
-    const allowed = ['.jpg', '.jpeg', '.png', '.webp', '.gif'];
+    const allowed = {
+      '.jpg': 'image/jpeg',
+      '.jpeg': 'image/jpeg',
+      '.png': 'image/png',
+      '.webp': 'image/webp',
+      '.gif': 'image/gif',
+    };
     const ext = path.extname(file.originalname).toLowerCase();
-    cb(null, allowed.includes(ext));
+    if (allowed[ext] !== file.mimetype) return cb(new Error('unsupported_type'));
+    cb(null, true);
   },
 });
+
+function getImageMime(buffer) {
+  if (buffer.length >= 3 && buffer[0] === 0xff && buffer[1] === 0xd8 && buffer[2] === 0xff) return 'image/jpeg';
+  if (buffer.subarray(0, 8).equals(Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]))) return 'image/png';
+  if (buffer.subarray(0, 6).toString('ascii').match(/^GIF8[79]a$/)) return 'image/gif';
+  if (buffer.length >= 12 && buffer.toString('ascii', 0, 4) === 'RIFF' && buffer.toString('ascii', 8, 12) === 'WEBP') return 'image/webp';
+  return null;
+}
 
 // -- Shared locals -------------------------------------------------------------------
 const assetVersion = Date.now().toString(36);
@@ -80,6 +84,15 @@ app.locals.year = new Date().getFullYear();
 
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: '7d', index: false }));
 app.use(i18nMiddleware);
+
+app.use(async (req, res, next) => {
+  try {
+    await db.ready;
+    next();
+  } catch (err) {
+    next(err);
+  }
+});
 
 // Load page content from the selected database and cache it on warm instances.
 app.use(async (req, res, next) => {
@@ -122,6 +135,25 @@ app.get('/2026', page('priorities', 'page_priorities_title', 'impact'));
 app.get('/report', page('report', 'page_report_title', 'impact'));
 
 // -- Gallery ---------------------------------------------------------------------------
+app.get('/img/gallery/:filename', async (req, res, next) => {
+  try {
+    const rows = await db.query(
+      'SELECT d.mime_type, d.image_data FROM gallery_images g INNER JOIN gallery_image_data d ON d.filename = g.filename WHERE g.filename = ?',
+      [req.params.filename],
+    );
+    if (!rows.length) return next();
+    res.set({
+      'Content-Type': rows[0].mime_type,
+      'Content-Length': rows[0].image_data.length,
+      'Cache-Control': 'public, max-age=86400',
+      'X-Content-Type-Options': 'nosniff',
+    });
+    res.send(rows[0].image_data);
+  } catch (err) {
+    next(err);
+  }
+});
+
 app.get('/gallery', async (req, res, next) => {
   try {
     const images = await db.query('SELECT id, filename, caption, alt_text FROM gallery_images ORDER BY sort_order, created_at DESC');
@@ -184,9 +216,10 @@ app.post('/contact', contactLimiter, async (req, res, next) => {
 
 // ---- Admin Authentication (Database & Session Cookie + HTTP Basic fallback) ----
 const SESSION_SECRET = process.env.SESSION_SECRET || (IS_VERCEL ? '' : 'visumo-secret-key-2026-safe-token');
+const SESSION_DURATION_MS = 2 * 60 * 1000;
 
 function createAdminToken(username) {
-  const expires = Date.now() + 7 * 24 * 60 * 60 * 1000; // 7 days
+  const expires = Date.now() + SESSION_DURATION_MS;
   const data = `${username}:${expires}`;
   const sig = crypto.createHmac('sha256', SESSION_SECRET).update(data).digest('hex');
   return Buffer.from(`${data}:${sig}`).toString('base64');
@@ -200,7 +233,7 @@ function verifyAdminToken(token) {
     if (parts.length !== 3) return null;
     const [username, expiresStr, sig] = parts;
     const expires = Number(expiresStr);
-    if (!expires || Date.now() > expires) return null;
+    if (!expires || Date.now() >= expires) return null;
     const expectedSig = crypto.createHmac('sha256', SESSION_SECRET).update(`${username}:${expires}`).digest('hex');
     const bSig = Buffer.from(sig);
     const bExpected = Buffer.from(expectedSig);
@@ -318,7 +351,7 @@ app.post('/admin/login', async (req, res) => {
         httpOnly: true,
         sameSite: 'lax',
         secure: process.env.VERCEL === '1' || process.env.FORCE_HTTPS === 'true',
-        maxAge: 7 * 24 * 60 * 60 * 1000,
+        maxAge: SESSION_DURATION_MS,
       });
       return res.redirect('/admin');
     }
@@ -395,26 +428,38 @@ app.post('/admin/messages/:id/delete', adminAuth, sameOrigin, async (req, res, n
 
 // Admin: upload gallery image
 app.post('/admin/gallery/upload', adminAuth, sameOrigin, (req, res, next) => {
-  // Vercel deployments have an ephemeral, read-only application filesystem.
-  if (process.env.VERCEL === '1') {
-    return res.redirect('/admin?section=gallery&error=uploads-unavailable-on-vercel');
-  }
   upload.single('image')(req, res, (err) => {
     if (err) {
       console.error('[gallery upload multer error]', err);
-      return res.redirect('/admin?section=gallery&error=' + encodeURIComponent(err.message || 'upload_failed'));
+      const code = err.code === 'LIMIT_FILE_SIZE' ? 'file_too_large' : err.message === 'unsupported_type' ? 'unsupported_type' : 'upload_failed';
+      return res.redirect('/admin?section=gallery&error=' + code);
     }
     next();
   });
 }, async (req, res, next) => {
   try {
     if (!req.file) return res.redirect('/admin?section=gallery&error=no-file');
+    const mimeType = getImageMime(req.file.buffer);
+    if (!mimeType || mimeType !== req.file.mimetype) {
+      return res.redirect('/admin?section=gallery&error=unsupported_type');
+    }
     const caption = String(req.body.caption || '').trim().slice(0, 300);
     const alt_text = String(req.body.alt_text || '').trim().slice(0, 300) || caption;
-    await db.query(
-      'INSERT INTO gallery_images (filename, caption, alt_text) VALUES (?, ?, ?)',
-      [req.file.filename, caption, alt_text],
-    );
+    const filename = `gallery-${crypto.randomUUID()}${path.extname(req.file.originalname).toLowerCase()}`;
+    await db.query('INSERT INTO gallery_images (filename, caption, alt_text) VALUES (?, ?, ?)', [filename, caption, alt_text]);
+    try {
+      await db.query(
+        'INSERT INTO gallery_image_data (filename, mime_type, image_data) VALUES (?, ?, ?)',
+        [filename, mimeType, req.file.buffer],
+      );
+    } catch (err) {
+      try {
+        await db.query('DELETE FROM gallery_images WHERE filename = ?', [filename]);
+      } catch (cleanupErr) {
+        console.error('[gallery upload cleanup error]', cleanupErr);
+      }
+      throw err;
+    }
     clearCache();
     res.redirect('/admin?section=gallery&success=uploaded');
   } catch (err) {
@@ -430,7 +475,7 @@ app.post('/admin/gallery/:id/delete', adminAuth, sameOrigin, async (req, res, ne
     if (Number.isInteger(id)) {
       const rows = await db.query('SELECT filename FROM gallery_images WHERE id = ?', [id]);
       if (rows.length) {
-        const filePath = path.join(GALLERY_DIR, rows[0].filename);
+        const filePath = path.join(__dirname, 'public', 'img', 'gallery', rows[0].filename);
         if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
         await db.query('DELETE FROM gallery_images WHERE id = ?', [id]);
       }
@@ -525,4 +570,3 @@ if (require.main === module) {
 }
 
 module.exports = app;
-

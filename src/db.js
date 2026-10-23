@@ -149,9 +149,23 @@ if (client === 'postgres' || client === 'postgresql' || client === 'pg') {
   throw new Error(`Unsupported DB_CLIENT "${client}". Use "postgres", "mysql", or "sqlite".`);
 }
 
+const imageDataType = client === 'postgres' || client === 'postgresql' || client === 'pg'
+  ? 'BYTEA'
+  : client === 'mysql' || client === 'mariadb'
+    ? 'LONGBLOB'
+    : 'BLOB';
+const ready = query(`
+  CREATE TABLE IF NOT EXISTS gallery_image_data (
+    filename VARCHAR(255) PRIMARY KEY,
+    mime_type VARCHAR(32) NOT NULL,
+    image_data ${imageDataType} NOT NULL,
+    FOREIGN KEY (filename) REFERENCES gallery_images(filename) ON DELETE CASCADE
+  )
+`);
+
 async function ping() {
   await query('SELECT 1 AS ok');
   return true;
 }
 
-module.exports = { client, query, ping, pool, cfg };
+module.exports = { client, query, ping, pool, cfg, ready };

@@ -64,7 +64,7 @@ DB_POOL_SIZE=2
 FORCE_HTTPS=true
 ```
 
-Set `SITE_URL` to the Vercel deployment URL after the first deploy, then redeploy. Vercel's standard Express deployment runs the whole app as a Function. The contact form and admin inbox persist through TiDB. Image uploads to the gallery are disabled on Vercel because function files do not persist; add images under `public/img/gallery` in Git and redeploy.
+Set `SITE_URL` to the Vercel deployment URL after the first deploy, then redeploy. Vercel's standard Express deployment runs the whole app as a Function. The contact form, admin inbox, and images uploaded in the admin gallery persist through TiDB; the gallery image data table is created automatically when the app starts.
 
 When deployment finishes, open `https://<your-project>.vercel.app/healthz`. It should return `{"status":"ok","database":"mysql"}`. Then open `/admin/login`, sign in with `ADMIN_USER` and `ADMIN_PASSWORD`, and send a contact form message to confirm it appears in the inbox.
 
