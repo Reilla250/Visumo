@@ -46,7 +46,12 @@ async function run() {
     }
   } else {
     const mysql = require('mysql2/promise');
-    const conn = await mysql.createConnection({ ...cfg, charset: 'utf8mb4', multipleStatements: true });
+    const conn = await mysql.createConnection({
+      ...cfg,
+      charset: 'utf8mb4',
+      multipleStatements: true,
+      ssl: process.env.DB_SSL === 'true' ? { minVersion: 'TLSv1.2' } : undefined,
+    });
     try {
       const [rows] = await conn.query(
         'SELECT COUNT(*) AS n FROM information_schema.tables WHERE table_schema = ? AND table_name = ?',

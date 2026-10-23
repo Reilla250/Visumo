@@ -14,7 +14,7 @@ This runs the Express website as a Vercel Function and stores the site content a
 2. Choose a region near your Vercel function region and create the instance with a **0** monthly spending limit.
 3. Open the instance's **Connect** panel, choose the public connection, and generate/save its password. Copy the host and the exact username shown there. TiDB Starter requires TLS; this project enables it with `DB_SSL=true`.
 
-The default database in a new TiDB Starter instance is usually `test`. Use that unless you create another database first.
+The Connect panel in your TiDB console may select `sys` by default. Do not use `sys` for the website. In TiDB's SQL Editor, run `CREATE DATABASE IF NOT EXISTS visumo;`, then select `visumo` in the Connect panel. On **Settings → Networking**, if the firewall allows only your current computer IP, add **AWS Access** for this AWS hosted cluster or keep `Allow_all_public_connections` enabled. Vercel Functions use dynamic outbound IPs, so a rule for only your computer will block the deployed app. See [TiDB firewall rules](https://docs.pingcap.com/tidbcloud/configure-serverless-firewall-rules-for-public-endpoints/) and [Vercel outbound IPs](https://vercel.com/kb/guide/can-i-get-a-fixed-ip-address).
 
 ### 2. Load the website content into TiDB
 
@@ -31,7 +31,7 @@ Set these values in `.env` from TiDB's **Connect** panel. Use a unique strong pa
 DB_CLIENT=mysql
 DB_HOST=<TiDB host>
 DB_PORT=4000
-DB_NAME=test
+DB_NAME=visumo
 DB_USER=<TiDB username>
 DB_PASSWORD=<TiDB password>
 DB_SSL=true
@@ -58,7 +58,7 @@ In the Vercel project's **Settings → Environment Variables**, add the same dat
 ```dotenv
 DB_CLIENT=mysql
 DB_PORT=4000
-DB_NAME=test
+DB_NAME=visumo
 DB_SSL=true
 DB_POOL_SIZE=2
 FORCE_HTTPS=true

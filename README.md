@@ -41,13 +41,25 @@ Vercel Hobby is restricted to personal or non-commercial use. Vercel defines com
 
 ### Step 1: Create your TiDB database
 
+If you already created the VISUMO instance in TiDB Cloud, keep using it and skip the instance-creation steps below. Your current instance is AWS Tokyo; when setting up Vercel, choose the closest available function region to Tokyo.
+
 1. Sign in to [TiDB Cloud](https://tidbcloud.com/).
 2. Choose **Create Resource**, select **Starter**, and select **MySQL Compatible**.
 3. Choose a cloud region. When Vercel is set up, choose its function region close to this database region to reduce delay.
 4. Set the monthly spending limit to **0** so the instance stays on the free quota, then create it.
 5. Open your new instance and choose **Connect**. Use the public connection. Generate and save the password. Copy the host and the exact username shown in the connection details. TiDB Starter requires TLS; this app uses it when `DB_SSL=true`. [TiDB create and connect guide](https://docs.pingcap.com/tidbcloud/create-tidb-cluster-serverless/)
 
-TiDB's default database is commonly named `test`. Use the database name shown by its connection details; if you changed or created another database, use that name instead.
+The connection dialog may initially select the `sys` database. Do not use `sys` for the website. In TiDB's **SQL Editor**, select the `sys` database and run:
+
+```sql
+CREATE DATABASE IF NOT EXISTS visumo;
+```
+
+Then choose `visumo` in the **Connect** dialog's **Database** selector. TiDB recommends creating an application database rather than using its default `test` database. [Create a TiDB database](https://docs.pingcap.com/developer/dev-guide-create-database/)
+
+If a TiDB password has been pasted into chat, shared in a screenshot, or committed to Git, reset it in the **Connect** panel and use only the replacement password in `.env` and Vercel. Never paste it into chat.
+
+Check the instance's **Settings → Networking** page. If it only allows your current computer IP, add **AWS Access** for this AWS hosted cluster, or leave `Allow_all_public_connections` enabled. Vercel Functions use dynamic outbound IPs, so allowing only your computer will block Vercel. TiDB documents the AWS access rule for Starter instances, and Vercel documents its dynamic outbound addresses. [TiDB firewall rules](https://docs.pingcap.com/tidbcloud/configure-serverless-firewall-rules-for-public-endpoints/), [Vercel outbound IPs](https://vercel.com/kb/guide/can-i-get-a-fixed-ip-address)
 
 ### Step 2: Import the website content into TiDB
 
@@ -69,7 +81,7 @@ Open `.env` in a text editor and set these values. Replace the angle bracket exa
 DB_CLIENT=mysql
 DB_HOST=<TiDB host>
 DB_PORT=4000
-DB_NAME=test
+DB_NAME=visumo
 DB_USER=<TiDB username>
 DB_PASSWORD="<TiDB password>"
 DB_SSL=true
@@ -91,7 +103,7 @@ Load the tables and report content into TiDB:
 node scripts/init-db.js mysql
 ```
 
-The script should finish with `Database "test" ... initialised`. It refuses to overwrite an existing VISUMO database. Run it once for the new database, not each time you deploy.
+The script should finish with a message like `Database "visumo" ... initialised`. It refuses to overwrite an existing VISUMO database. Run it once for the new database, not each time you deploy.
 
 ### Step 3: Push the project to GitHub
 
@@ -110,14 +122,16 @@ If it is not on GitHub yet, create a repository under your personal GitHub accou
 1. Sign in at [Vercel](https://vercel.com/) and choose **Add New → Project**.
 2. Import the GitHub repository containing this project.
 3. Leave the project root as the repository root. Vercel detects the Express app; do not choose a separate frontend framework or add a build command. The root `index.js` exports the app, and `vercel.json` includes the EJS templates and public files in the deployment. Vercel runs the Express site as a Function and serves the static files with it.
-4. Before deploying, add these under **Environment Variables**. Apply them to **Production**; also apply them to **Preview** if you want preview deployments to connect to the same database. Enter passwords as their exact values, without quote marks.
+4. Use [`vercel.env.example`](vercel.env.example) as the Vercel variable template. It contains the connection values from your TiDB instance and placeholders for secrets. Replace `DB_PASSWORD` with the new password after rotating it, set a unique `ADMIN_PASSWORD`, and replace `SESSION_SECRET` with the output of the random-secret command in Step 2. Do not commit a filled-in copy of this file.
+
+   Add the variables under **Project → Settings → Environment Variables** for **Production**; also apply them to **Preview** if you want preview deployments to connect to the same database. Vercel's documented project setup is to add variables in this page; its `.env` import option is available for team-level Shared Environment Variables. If you use that option, link the shared variables to this project. Enter passwords as their exact values, without quote marks. [Vercel environment variable guide](https://vercel.com/docs/environment-variables/managing-environment-variables) · [Shared variable import guide](https://vercel.com/docs/environment-variables/shared-environment-variables)
 
    | Name | Value |
    | --- | --- |
    | `DB_CLIENT` | `mysql` |
    | `DB_HOST` | TiDB host from Connect |
    | `DB_PORT` | `4000` |
-   | `DB_NAME` | The database name from Connect, usually `test` |
+   | `DB_NAME` | `visumo` |
    | `DB_USER` | Exact TiDB username from Connect |
    | `DB_PASSWORD` | TiDB password |
    | `DB_SSL` | `true` |
