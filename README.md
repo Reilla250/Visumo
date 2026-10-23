@@ -159,6 +159,8 @@ Open these pages on the Vercel URL:
 - `/admin/login` should let you sign in with `ADMIN_USER` and `ADMIN_PASSWORD`.
 - Submit a test message at `/contact`, then confirm it appears in `/admin`.
 
+If `npm run db:seed:mysql` reports `ECONNREFUSED 127.0.0.1:3306`, the local `.env` file is missing or `DB_HOST`/`DB_PORT` were not loaded. Create `.env` from `.env.example`, then set `DB_HOST` to the TiDB host from **Connect**, `DB_PORT=4000`, `DB_NAME=visumo`, `DB_USER` and `DB_PASSWORD` from **Connect**, and `DB_SSL=true`. Run the seed command from the project root. Do not paste the password into chat.
+
 If `/healthz` returns an error, check that the TiDB hostname, exact username, password, database name, port `4000`, and `DB_SSL=true` match the Connect panel. If the deployment build fails, open **Vercel → Deployments → failed deployment → Build Logs** and check that the project root is the repository root and Node.js is version 20 or newer.
 
 ### Updating the site after deployment
