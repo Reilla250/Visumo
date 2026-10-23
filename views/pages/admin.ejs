@@ -141,25 +141,18 @@
     <% } %>
     <% if (typeof query !== 'undefined' && query && query.error) { %>
     <div class="admin-notice warn" style="background: #fef2f2; border: 1px solid #ef4444; color: #b91c1c; padding: 0.85rem 1.25rem; border-radius: 8px; margin-bottom: 1.5rem;">
-      <% if (query.error === 'file_too_large') { %>
-        ⚠ L’image dépasse la taille maximale de 4 Mo.
-      <% } else if (query.error === 'unsupported_type') { %>
-        ⚠ Format non pris en charge. Sélectionnez une image JPG, PNG, WebP ou GIF valide.
-      <% } else if (query.error === 'no-file') { %>
-        ⚠ Veuillez sélectionner une image à ajouter.
-      <% } else { %>
-        ⚠ L’ajout de l’image a échoué. Vérifiez la connexion à la base de données et réessayez.
-      <% } %>
+      ⚠ Erreur lors de l'envoi de la photo : <%= query.error %>. Assurez-vous de sélectionner une image valide (JPG, PNG, WebP) de moins de 8 Mo.
     </div>
     <% } %>
 
+    <% if (!vercelRuntime) { %>
     <div class="admin-section">
       <h2>Ajouter une photo</h2>
       <form method="POST" action="/admin/gallery/upload" enctype="multipart/form-data" class="upload-form">
         <div class="upload-area" id="upload-area">
           <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
           <p>Glissez une image ici ou <strong>cliquez pour choisir</strong></p>
-          <p class="small muted">JPG, PNG, WebP ou GIF · Max 4 Mo</p>
+          <p class="small muted">JPG, PNG, WebP ou GIF · Max 8 Mo</p>
           <input type="file" name="image" accept="image/*" required id="upload-input">
         </div>
         <div class="upload-fields">
@@ -178,6 +171,12 @@
         </div>
       </form>
     </div>
+    <% } else { %>
+    <div class="admin-section">
+      <h2>Ajouter une photo</h2>
+      <p class="muted">Sur l’hébergement Vercel, ajoutez les photos dans <code>public/img/gallery</code> puis déployez à nouveau.</p>
+    </div>
+    <% } %>
 
     <div class="admin-section">
       <h2>Photos existantes (<%= galleryImages.length %>)</h2>

@@ -114,4 +114,4 @@ If `/healthz` fails, verify the database host, port `4000`, database `visumo`, u
 
 ## Free plan note
 
-TiDB Starter has monthly usage quotas. Vercel Hobby is for personal, non-commercial use; check that VISUMO's use qualifies under [Vercel's Hobby fair-use terms](https://vercel.com/docs/limits/fair-use-guidelines#commercial-usage). Photos uploaded through the admin gallery are stored in TiDB and remain available after redeployments. The gallery image data table is created automatically by the application.
+TiDB Starter has monthly usage quotas. Vercel Hobby is for personal, non-commercial use; check that VISUMO's use qualifies under [Vercel's Hobby fair-use terms](https://vercel.com/docs/limits/fair-use-guidelines#commercial-usage). The app's gallery photos are deployed from `public/img/gallery`; add new photos to the project and push them to GitHub because Vercel's function filesystem does not keep uploaded files between deployments.
