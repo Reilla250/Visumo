@@ -1,11 +1,10 @@
 'use strict';
 /**
  * Internationalization (i18n) for VISUMO website.
- * Supports: French (fr, default), English (en), Swahili (sw).
+ * The public website is French-only.
  * UI strings only — database content stays in its stored language.
  */
 
-const SUPPORTED = ['fr', 'en', 'sw'];
 const DEFAULT_LANG = 'fr';
 
 const translations = {
@@ -371,34 +370,16 @@ const translations = {
   },
 };
 
-/** Parse language from cookie string */
-function parseLang(cookieHeader) {
-  if (!cookieHeader) return DEFAULT_LANG;
-  const match = cookieHeader.match(/(?:^|;\s*)lang=([a-z]{2})/);
-  if (match && SUPPORTED.includes(match[1])) return match[1];
-  return DEFAULT_LANG;
+/** Get the French website translations. */
+function getTranslations() {
+  return translations[DEFAULT_LANG];
 }
 
-/** Get translations for a language */
-function getTranslations(lang) {
-  return translations[lang] || translations[DEFAULT_LANG];
-}
-
-/** Express middleware: sets res.locals.lang, res.locals.t, handles ?lang= switching */
+/** Express middleware: sets the public website language to French. */
 function i18nMiddleware(req, res, next) {
-  // If ?lang= query param, set cookie and redirect
-  if (req.query.lang && SUPPORTED.includes(req.query.lang)) {
-    res.cookie('lang', req.query.lang, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true, sameSite: 'lax' });
-    const url = req.originalUrl.replace(/([?&])lang=[^&]+(&|$)/, (m, p1, p2) => p2 ? p1 : '');
-    const cleanUrl = url.replace(/\?$/, '') || '/';
-    return res.redirect(cleanUrl);
-  }
-  const lang = parseLang(req.headers.cookie);
-  res.locals.lang = lang;
-  res.locals.t = getTranslations(lang);
-  res.locals.langName = { fr: 'Français', en: 'English', sw: 'Kiswahili' };
-  res.locals.supportedLangs = SUPPORTED;
+  res.locals.lang = DEFAULT_LANG;
+  res.locals.t = getTranslations();
   next();
 }
 
-module.exports = { i18nMiddleware, getTranslations, parseLang, SUPPORTED, DEFAULT_LANG };
+module.exports = { i18nMiddleware, getTranslations, DEFAULT_LANG };

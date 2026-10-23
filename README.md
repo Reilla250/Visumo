@@ -20,7 +20,7 @@ visumo-website/
   DEPLOYMENT.md                                                 <- step-by-step server guide
 ```
 
-Pages: Home, About, Programmes, Partners, Voices (Kiswahili and French testimonies), Accountability, 2026 plan,
+Pages: Home, About, Programmes, Partners, Voices (French testimonies), Accountability, 2026 plan,
 Gallery and Contact (saves to the database), plus a password-protected `/admin` inbox and `/healthz`.
 
 ## Deploy the full website free: TiDB Cloud + Vercel

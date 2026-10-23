@@ -47,25 +47,6 @@
     });
   });
 
-  // ---- Language switcher (handles both .lang-dropdown and .lang-switcher) ----
-  var langDropdown = document.getElementById('lang-dropdown') || document.querySelector('.lang-dropdown') || document.querySelector('.lang-switcher');
-  var langBtn = document.querySelector('.lang-toggle') || document.querySelector('.lang-btn');
-  if (langDropdown && langBtn) {
-    langBtn.addEventListener('click', function (e) {
-      e.stopPropagation();
-      var isOpen = langDropdown.classList.toggle('open');
-      langBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-    });
-  }
-
-  // ---- Close dropdowns and lang menu on outside click ----
-  document.addEventListener('click', function (e) {
-    if (langDropdown && !langDropdown.contains(e.target)) {
-      langDropdown.classList.remove('open');
-      if (langBtn) langBtn.setAttribute('aria-expanded', 'false');
-    }
-  });
-
   // ---- Close everything on Escape ----
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') {
@@ -75,10 +56,6 @@
           btn.setAttribute('aria-expanded', 'false');
           btn.focus();
         }
-      }
-      if (langDropdown) {
-        langDropdown.classList.remove('open');
-        if (langBtn) langBtn.setAttribute('aria-expanded', 'false');
       }
       // Close lightbox
       var lightbox = document.getElementById('lightbox');
