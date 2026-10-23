@@ -27,6 +27,8 @@ official letterhead), Contact (saves to the database), plus a password-protected
 
 ## Deploy the full website free: TiDB Cloud + Vercel
 
+For a separate, printable walkthrough, see [VERCEL_HOSTING_GUIDE.md](VERCEL_HOSTING_GUIDE.md).
+
 The **frontend and backend deploy together to Vercel**. Vercel serves the pages, CSS, JavaScript, images, contact form, admin pages, and API routes. TiDB Cloud stores the page content and contact messages in a MySQL-compatible database. You do not need to deploy a second backend server.
 
 This setup uses TiDB Cloud Starter's monthly free quota and Vercel Hobby's free tier. TiDB currently includes 5 GiB of row storage and 50 million request units per month for each of the first five MySQL-compatible Starter instances in an organization. If the database reaches its free quota, new connections are refused until the next monthly reset. [TiDB free quota details](https://docs.pingcap.com/tidbcloud/serverless-limitations/)
