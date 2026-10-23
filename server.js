@@ -12,7 +12,6 @@ const multer = require('multer');
 
 const db = require('./src/db');
 const { getContent, clearCache } = require('./src/content');
-const charts = require('./src/charts');
 const { i18nMiddleware } = require('./src/i18n');
 
 const app = express();
@@ -73,9 +72,6 @@ const upload = multer({
 // -- Shared locals -------------------------------------------------------------------
 const assetVersion = Date.now().toString(36);
 app.locals.assetV = assetVersion;
-app.locals.fmt = charts.fmt;
-app.locals.usd = (n) => `USD ${charts.fmt(n)}`;
-app.locals.signed = (n) => `${n >= 0 ? '+' : '-'}${charts.fmt(Math.abs(n))}`;
 app.locals.siteUrl = SITE_URL;
 app.locals.contactEmail = process.env.CONTACT_EMAIL || 'visumoadm@gmail.com';
 app.locals.year = new Date().getFullYear();
@@ -113,15 +109,8 @@ app.get('/about', page('about', 'page_about_title', 'about'));
 app.get('/programmes', page('programmes', 'page_programmes_title', 'about'));
 app.get('/partners', page('partners', 'page_partners_title', 'impact'));
 app.get('/voices', page('voices', 'page_voices_title', 'about'));
-app.get('/finance', (req, res) => res.render('pages/finance', {
-  title: res.locals.t.page_finance_title,
-  active: 'impact',
-  incomeChart: charts.incomeBars(res.locals.c.income.years),
-  sourceChart: charts.sourceBars(res.locals.c.income.sources),
-}));
 app.get('/accountability', page('accountability', 'page_accountability_title', 'about'));
 app.get('/2026', page('priorities', 'page_priorities_title', 'impact'));
-app.get('/report', page('report', 'page_report_title', 'impact'));
 
 // -- Gallery ---------------------------------------------------------------------------
 app.get('/gallery', async (req, res, next) => {
@@ -458,7 +447,7 @@ app.post('/admin/gallery/:id/delete', adminAuth, sameOrigin, async (req, res, ne
 // Admin: update site settings
 app.post('/admin/content/update', adminAuth, sameOrigin, async (req, res, next) => {
   try {
-    const keys = ['hero_headline', 'tagline', 'sw_motto', 'site_name', 'org_full_name', 'footer_note', 'reporting_period'];
+    const keys = ['hero_headline', 'tagline', 'sw_motto', 'site_name', 'org_full_name', 'footer_note'];
     for (const key of keys) {
       if (req.body[key] !== undefined) {
         const val = String(req.body[key]).trim().slice(0, 2000);
@@ -479,15 +468,6 @@ app.post('/admin/cache/clear', adminAuth, sameOrigin, (req, res) => {
 });
 
 // ---- JSON API, health, SEO ----------------------------------------------------------
-app.get('/api/income', (req, res) => {
-  const { years, sources, growth } = res.locals.c.income;
-  res.json({ currency: 'USD', years, sources, growth_2024_to_2025: growth });
-});
-
-app.get('/api/sections', (req, res) => {
-  res.json(res.locals.c.contents.map((s) => ({ number: s.section_number, slug: s.slug, title: s.title })));
-});
-
 app.get('/healthz', async (req, res) => {
   try {
     await db.ping();
@@ -503,7 +483,7 @@ app.get('/robots.txt', (req, res) => {
 
 app.get('/sitemap.xml', (req, res) => {
   const base = SITE_URL || `${req.protocol}://${req.get('host')}`;
-  const urls = ['/', '/about', '/programmes', '/partners', '/voices', '/finance', '/accountability', '/2026', '/report', '/gallery', '/contact'];
+  const urls = ['/', '/about', '/programmes', '/partners', '/voices', '/accountability', '/2026', '/gallery', '/contact'];
   res.type('application/xml').send(
     `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((u) => `  <url><loc>${base}${u}</loc></url>`).join('\n')}\n</urlset>\n`,
   );

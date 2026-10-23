@@ -57,14 +57,12 @@
         </li>
 
         <li class="has-dropdown<%= active === 'impact' ? ' active-parent' : '' %>">
-          <a href="/report"<%= active === 'impact' ? ' class="active" aria-current="page"' : '' %> aria-haspopup="true">
+          <a href="/partners"<%= active === 'impact' ? ' class="active" aria-current="page"' : '' %> aria-haspopup="true">
             <%= t.nav_impact %>
             <svg class="dd-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
           <ul class="dropdown">
-            <li><a href="/finance"<%= path === '/finance' ? ' class="active"' : '' %>><%= t.nav_finances %></a></li>
             <li><a href="/partners"<%= path === '/partners' ? ' class="active"' : '' %>><%= t.nav_partners %></a></li>
-            <li><a href="/report"<%= path === '/report' ? ' class="active"' : '' %>><%= t.nav_report %></a></li>
             <li><a href="/2026"<%= path === '/2026' ? ' class="active"' : '' %>><%= t.nav_priorities %></a></li>
           </ul>
         </li>

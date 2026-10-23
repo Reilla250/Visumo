@@ -12,13 +12,11 @@ let cache = null;
 let cachedAt = 0;
 let inflight = null;
 
-const num = (v) => (v === null || v === undefined ? null : Number(v));
-
 async function load() {
   const [
     settingsRows, sections, paragraphs, callouts, locations, profile, dashboard, theory, assumptions,
-    messages, barriers, outreach, terms, stakeholders, testimonies, income, sources, sourceAmounts,
-    indicators, risks, challenges, priorities, evidence, figures, docControl, images,
+    messages, barriers, outreach, terms, stakeholders, testimonies,
+    indicators, risks, challenges, priorities, figures, images,
   ] = await Promise.all([
     query('SELECT setting_key, setting_value FROM site_settings'),
     query('SELECT section_number, slug, title, listed_in_contents FROM report_sections ORDER BY section_number'),
@@ -35,16 +33,11 @@ async function load() {
     query('SELECT technical_term, better_wording FROM terminology_guide ORDER BY sort_order'),
     query('SELECT stakeholder_group, contribution FROM stakeholders ORDER BY sort_order'),
     query('SELECT lang, title, quote, anonymised FROM testimonies ORDER BY sort_order'),
-    query('SELECT report_year, amount_usd, basis, is_audited FROM annual_income ORDER BY report_year'),
-    query('SELECT id, name FROM income_sources ORDER BY sort_order'),
-    query('SELECT source_id, report_year, amount_usd FROM income_source_amounts ORDER BY report_year'),
     query('SELECT area, indicator, data_source FROM me_indicators ORDER BY sort_order'),
     query('SELECT risk, action_taken FROM safeguarding_risks ORDER BY sort_order'),
     query('SELECT challenge, mitigation, lesson FROM challenges ORDER BY sort_order'),
     query('SELECT priority FROM priorities_2026 ORDER BY sort_order'),
-    query('SELECT source_item, report_use FROM evidence_sources ORDER BY sort_order'),
     query('SELECT figure_value, label, detail, is_approximate FROM project_design_figures ORDER BY sort_order'),
-    query('SELECT field_name, details FROM document_control ORDER BY sort_order'),
     query('SELECT filename, section_number, caption, alt_text FROM site_images ORDER BY sort_order'),
   ]);
 
@@ -61,27 +54,6 @@ async function load() {
 
   const img = {};
   images.forEach((i) => { img[i.filename] = i; });
-
-  // Income: yearly totals, and per-source rows with 2024 / 2025 and change
-  const incomeYears = income.map((r) => ({
-    year: r.report_year, amount: num(r.amount_usd), basis: r.basis, audited: !!r.is_audited,
-  }));
-  const byYear = Object.fromEntries(incomeYears.map((r) => [r.year, r]));
-  const incomeSources = sources.map((s) => {
-    const a = (y) => {
-      const row = sourceAmounts.find((x) => x.source_id === s.id && x.report_year === y);
-      return row ? num(row.amount_usd) : 0;
-    };
-    const y2024 = a(2024);
-    const y2025 = a(2025);
-    return { name: s.name, y2024, y2025, change: Math.round((y2025 - y2024) * 100) / 100 };
-  });
-  const latest = incomeYears[incomeYears.length - 1];
-  const previous = incomeYears[incomeYears.length - 2];
-  const growth = latest && previous ? Math.round((latest.amount - previous.amount) * 100) / 100 : null;
-  const sum = (k) => Math.round(incomeSources.reduce((t, r) => t + r[k], 0) * 100) / 100;
-  const sourceTotals = { y2024: sum('y2024'), y2025: sum('y2025') };
-  sourceTotals.change = Math.round((sourceTotals.y2025 - sourceTotals.y2024) * 100) / 100;
 
   return localizeToFrench({
     settings,
@@ -101,14 +73,11 @@ async function load() {
     terms,
     stakeholders,
     testimonies: testimonies.map((t) => ({ ...t, anonymised: !!t.anonymised })),
-    income: { years: incomeYears, byYear, sources: incomeSources, growth, latest, previous, sourceTotals },
     indicators,
     risks,
     challenges,
     priorities: priorities.map((p) => p.priority),
-    evidence,
     figures: figures.map((f) => ({ ...f, is_approximate: !!f.is_approximate })),
-    docControl,
   });
 }
 

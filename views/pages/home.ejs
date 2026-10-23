@@ -7,7 +7,7 @@
       <h1><%= c.settings.hero_headline %></h1>
       <p class="lead"><%= c.settings.tagline %></p>
       <div class="btn-row">
-        <a class="btn" href="/report"><%= t.hero_cta_report %></a>
+        <a class="btn" href="/about"><%= t.nav_about_us %></a>
         <a class="btn btn-ghost" href="/contact"><%= t.hero_cta_partner %></a>
       </div>
       <p class="motto" lang="sw"><%= c.settings.sw_motto %></p>
@@ -76,24 +76,6 @@
       </article>
       <% }) %>
     </div>
-  </div>
-</section>
-
-<section class="section alt">
-  <div class="wrap two-col">
-    <div>
-      <p class="eyebrow"><%= t.financial_transparency %></p>
-      <h2><% if (lang === 'en') { %>Audited revenues growing in 2025<% } else if (lang === 'sw') { %>Mapato yaliyokaguliwa yanaongezeka mnamo 2025<% } else { %>Des revenus audités en hausse en 2025<% } %></h2>
-      <p><% if (lang === 'en') { %>Exact amounts in USD, from audited financial statements of 2024 and 2025.
-      <% } else if (lang === 'sw') { %>Kiasi halisi kwa USD, kutoka taarifa za fedha zilizokaguliwa za 2024 na 2025.
-      <% } else { %>Montants exacts en USD, issus des états financiers audités de 2024 et 2025.<% } %></p>
-      <p><a class="more" href="/finance"><%= t.learn_more %> &rarr;</a></p>
-    </div>
-    <dl class="big-numbers">
-      <div><dt>2024 (<%= lang === 'en' ? 'audited' : lang === 'sw' ? 'imekaguliwa' : 'audité' %>)</dt><dd><%= usd(c.income.byYear[2024].amount) %></dd></div>
-      <div><dt>2025 (<%= lang === 'en' ? 'audited' : lang === 'sw' ? 'imekaguliwa' : 'audité' %>)</dt><dd><%= usd(c.income.byYear[2025].amount) %></dd></div>
-      <div class="accent"><dt><%= lang === 'en' ? 'Growth' : lang === 'sw' ? 'Ukuaji' : 'Progression' %></dt><dd>+<%= usd(c.income.growth) %></dd></div>
-    </dl>
   </div>
 </section>
 

@@ -15,7 +15,8 @@
     <h2><%= lang === 'en' ? 'Our founding name' : lang === 'sw' ? 'Jina letu la mwanzilishi' : 'Notre dénomination de fondation' %></h2>
     <div class="about-cert-box">
       <p class="about-cert-name">VIOLENCE SURVIVORS MOTHERS LIVING WITH HIV<br>«&nbsp;VISUMO&#8209;LWHIV&nbsp;»</p>
-      <p class="about-cert-meta">
+    <p class="about-cert-date"><strong><%= lang === 'en' ? 'Registered: 21 July 2018' : lang === 'sw' ? 'Imesajiliwa: 21 Julai 2018' : 'Enregistrée le : 21 juillet 2018' %></strong></p>
+    <p class="about-cert-meta">
         <%= lang === 'en'
           ? 'Registered under Attestation d\'Enregistrement N° 0241/DIVAS/N-K/AS/64/2018, issued on 21 July 2018 by the Division Provinciale des Affaires Sociales et de Solidarité Nationale du Nord-Kivu (B.P. 405 Goma), République Démocratique du Congo.'
           : lang === 'sw'
@@ -65,13 +66,13 @@
       <p>
         <% if (lang === 'en') { %>
           <strong>Names of people living with HIV are never disclosed.</strong>
-          In all our communications, reports, testimonies, and materials, individuals living with HIV are never identified by name, photo, or any other detail that could lead to their identification. Anonymization is applied systematically to protect every person we support.
+          In all our communications, testimonies, and materials, individuals living with HIV are never identified by name, photo, or any other detail that could lead to their identification. Anonymization is applied systematically to protect every person we support.
         <% } else if (lang === 'sw') { %>
           <strong>Majina ya watu wanaoishi na VVU hayafichuliwi kamwe.</strong>
-          Katika mawasiliano yetu yote, ripoti, ushuhuda, na nyenzo, watu wanaoishi na VVU hawatambuliwi kamwe kwa jina, picha, au maelezo mengine yanayoweza kusaidia kutambulika kwao. Ufichiaji wa jina unafanywa kwa utaratibu ili kulinda kila mtu tunayemsaidia.
+          Katika mawasiliano yetu yote, ushuhuda, na nyenzo, watu wanaoishi na VVU hawatambuliwi kamwe kwa jina, picha, au maelezo mengine yanayoweza kusaidia kutambulika kwao. Ufichiaji wa jina unafanywa kwa utaratibu ili kulinda kila mtu tunayemsaidia.
         <% } else { %>
           <strong>Les noms des personnes vivant avec le VIH ne sont jamais divulgués.</strong>
-          Dans toutes nos communications, rapports, témoignages et supports, les personnes vivant avec le VIH ne sont jamais identifiées par leur nom, photo ou tout autre détail pouvant conduire à leur identification. L'anonymisation est appliquée systématiquement pour protéger chaque personne que nous accompagnons.
+          Dans toutes nos communications, témoignages et supports, les personnes vivant avec le VIH ne sont jamais identifiées par leur nom, photo ou tout autre détail pouvant conduire à leur identification. L'anonymisation est appliquée systématiquement pour protéger chaque personne que nous accompagnons.
         <% } %>
       </p>
     </div>
@@ -136,7 +137,6 @@
         </tbody>
       </table>
     </div>
-    <%- include('../partials/callout', { slug: 'report-focus-2025' }) %>
   </div>
 </section>
 

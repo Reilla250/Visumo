@@ -1,7 +1,7 @@
 # VISUMO website
 
-Website for **Violence Survivors Mothers (VISUMO)**, North Kivu, DRC, built from the *Annual Narrative Report 2025*.
-All page content (text, tables, testimonies, income figures) is stored in a database and rendered by a small Node.js app.
+Website for **Violence Survivors Mothers (VISUMO)**, North Kivu, DRC.
+Page content (text, tables and testimonies) is stored in a database and rendered by a small Node.js app.
 You can run it on **PostgreSQL** or **MySQL/MariaDB** - the same site, the same content.
 
 ## What is inside
@@ -12,7 +12,7 @@ visumo-website/
   database/
     postgres/  schema.sql  seed.sql  visumo_postgres_full.sql   <- schema + data in one file
     mysql/     schema.sql  seed.sql  visumo_mysql_full.sql      <- schema + data in one file
-    tools/generate_seed.py                                      <- regenerates seed/full files from the report text
+    tools/generate_seed.py                                      <- regenerates seed/full files from website content
   Dockerfile, docker-compose.postgres.yml, docker-compose.mysql.yml
   deploy/    nginx.conf, visumo.service (systemd), backup.sh
   scripts/init-db.js                                            <- loads the database without psql/mysql tools
@@ -20,10 +20,8 @@ visumo-website/
   DEPLOYMENT.md                                                 <- step-by-step server guide
 ```
 
-Pages: Home, About, Programmes, Partners, Voices (Kiswahili and French testimonies), Finance (2021-2025 income with
-charts), Accountability, 2026 plan, Report (contents, annex, document control, report and French statutes downloads,
-official letterhead), Contact (saves to the database), plus a password-protected `/admin` inbox, `/api/income`,
-`/api/sections` and `/healthz`.
+Pages: Home, About, Programmes, Partners, Voices (Kiswahili and French testimonies), Accountability, 2026 plan,
+Gallery and Contact (saves to the database), plus a password-protected `/admin` inbox and `/healthz`.
 
 ## Deploy the full website free: TiDB Cloud + Vercel
 
@@ -99,7 +97,7 @@ Generate a random session secret by running this command in the terminal, then p
 node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 ```
 
-Load the tables and report content into TiDB:
+Load the tables and website content into TiDB:
 
 ```bash
 node scripts/init-db.js mysql
@@ -155,9 +153,7 @@ Environment variable changes only affect new deployments, so redeploy after chan
 Open these pages on the Vercel URL:
 
 - `/healthz` should return `{"status":"ok","database":"mysql"}`.
-- `/` should show the home page with the report content, rather than blank or sample data.
-- `/finance` should show the income figures and charts.
-- `/api/income` should return JSON data.
+- `/` should show the home page content, rather than blank or sample data.
 - `/admin/login` should let you sign in with `ADMIN_USER` and `ADMIN_PASSWORD`.
 - Submit a test message at `/contact`, then confirm it appears in `/admin`.
 
@@ -167,7 +163,7 @@ If `/healthz` returns an error, check that the TiDB hostname, exact username, pa
 
 ### Updating the site after deployment
 
-Push code changes to the connected GitHub branch and Vercel deploys them. Text and report content are stored in TiDB and can be edited through SQL; the site caches content for 60 seconds. Contact messages are stored in TiDB and remain after redeployment. Gallery images already in `public/img/gallery` are deployed with the site. New gallery photos must be added to that folder in Git and pushed; Vercel's function filesystem is temporary, so the admin upload form is replaced with instructions on Vercel.
+Push code changes to the connected GitHub branch and Vercel deploys them. Text and page content are stored in TiDB and can be edited through SQL; the site caches content for 60 seconds. Contact messages are stored in TiDB and remain after redeployment. Gallery images already in `public/img/gallery` are deployed with the site. New gallery photos must be added to that folder in Git and pushed; Vercel's function filesystem is temporary, so the admin upload form is replaced with instructions on Vercel.
 
 For a separate Linux or Docker deployment, see [DEPLOYMENT.md](DEPLOYMENT.md).
 
@@ -184,7 +180,7 @@ docker compose -f docker-compose.postgres.yml up -d --build
 docker compose -f docker-compose.mysql.yml up -d --build
 ```
 
-Open <http://localhost:3000>. The database is created and filled with the report content automatically on first start.
+Open <http://localhost:3000>. The database is created and filled with website content automatically on first start.
 
 ## Quick start (without Docker)
 
@@ -204,18 +200,17 @@ npm start                               # http://localhost:3000
 
 ## Editing the website text
 
-Everything visible comes from the database, so edit it there (the site caches content for 60 seconds, or press
+Most page content comes from the database, so edit it there (the site caches content for 60 seconds, or press
 *Refresh site content cache* on `/admin`). Examples:
 
 ```sql
 UPDATE callouts SET body = 'New wording' WHERE slug = 'message-to-partners';
 UPDATE site_settings SET setting_value = 'New headline' WHERE setting_key = 'hero_headline';
-UPDATE annual_income SET amount_usd = 360000.12 WHERE report_year = 2026;   -- or INSERT a new year
 ```
 
-To add 2026 income, insert a row in `annual_income` (and in `income_source_amounts` if you break it down by source);
-the Finance page and charts update automatically. Bigger content changes: edit `database/tools/generate_seed.py`,
-run `python3 database/tools/generate_seed.py`, and re-import (this resets the database - back up messages first).
+The `annual_income` and `income_source_amounts` records remain in the database for internal use; no public page or API
+serves them. For other content changes, edit `database/tools/generate_seed.py`, run
+`python3 database/tools/generate_seed.py`, and re-import (this resets the database - back up messages first).
 
 ## Before going public - checklist
 
@@ -224,14 +219,12 @@ run `python3 database/tools/generate_seed.py`, and re-import (this resets the da
 - Add the official VISUMO logo by replacing `public/img/logo.svg` and `public/img/favicon.svg` (the current ones are a
   simple placeholder monogram, not the registered logo).
 - `CONTACT_EMAIL` is prefilled with the official address shown on the supplied letterhead (`visumoadm@gmail.com`). Replace it in `.env` if VISUMO uses another inbox. The contact form saves submissions in the database inbox; it does not send email notifications.
-- Photos come from the report. Keep VISUMO's consent and survivor-safety rules in mind before adding or changing images or quotes.
+- Keep VISUMO's consent and survivor-safety rules in mind before adding or changing images or quotes.
 - The contact form warns visitors not to send survivor-identifying information. Treat the inbox as sensitive data and
   keep `/admin` access limited.
 
 ## Source notes
 
-- Income: 2024 and 2025 are audited (UBT); 2021-2023 are internal comparative figures. Source totals for 2024 and 2025
-  add up exactly to the audited annual totals.
-- The report's dashboard graphic labels the "10" tile as *local commitments*, while the annex says *10 trainers*. The
-  site follows the written annex (10 trainers). Change it in `project_design_figures` if the graphic is correct.
+- The registration date displayed on About is 21 July 2018, as shown on the supplied certificate.
+- Financial records are retained in the database for internal use and are not part of the public website.
 "# Visumo" 

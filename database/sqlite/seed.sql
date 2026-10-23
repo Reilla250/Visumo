@@ -3,7 +3,6 @@
 
 INSERT OR IGNORE INTO report_sections (section_number, slug, title, listed_in_contents) VALUES
   (1, 'identity', 'Organisational identity and profile', 1),
-  (2, 'contents', 'Contents and evidence basis', 1),
   (3, 'executive-summary', 'Executive summary', 1),
   (4, 'dashboard', '2025 strategic dashboard', 1),
   (5, 'context', 'Operating context in North Kivu', 1),
@@ -14,23 +13,17 @@ INSERT OR IGNORE INTO report_sections (section_number, slug, title, listed_in_co
   (10, 'health-communication', 'Health communication: HIV, family planning, safe pregnancy and post-rape care', 1),
   (11, 'partnerships', 'Partnerships and local accountability', 1),
   (12, 'voices', 'Beneficiary voices: Kiswahili and French testimonies', 1),
-  (13, 'income-analysis', 'Annual income analysis, 2021-2025', 1),
-  (14, 'income-sources', 'Income sources and financial resilience', 1),
   (15, 'monitoring-learning', 'Monitoring, evaluation, accountability and learning', 1),
   (16, 'safeguarding', 'Safeguarding, ethics and survivor-safe documentation', 1),
   (17, 'challenges', 'Challenges, mitigation and lessons learned', 1),
-  (18, 'priorities-2026', '2026 priorities and sustainability plan', 1),
-  (19, 'annex', 'Annex: evidence sources and document control', 1),
-  (20, 'closing-commitment', 'Closing commitment', 0),
-  (21, 'approval', 'Approval and certification', 0);
+  (18, 'priorities-2026', '2026 priorities and sustainability plan', 1);
 
 INSERT OR IGNORE INTO section_paragraphs (section_number, sort_order, body) VALUES
   (1, 1, 'Registered in the Democratic Republic of the Congo and rooted in North Kivu community realities.'),
-  (1, 2, 'Formal legal evidence can be supplied separately as a due-diligence document when requested by donors, authorities or partners.'),
+  (1, 2, 'Formal legal evidence can be supplied separately as a due-diligence document when requested by donors, authorities or partners. VISUMO public information focuses on identity, results, learning, community accountability and programme readiness.'),
   (3, 1, 'VISUMO entered 2025 with a clear identity: a survivor-led civil society organisation in North Kivu that stands beside women and girls affected by violence, displacement, trauma, HIV-related stigma, disability exclusion and barriers to sexual and reproductive health and rights.'),
   (3, 2, 'The organisation''s work is shaped by the realities of Beni and surrounding displacement-affected communities, including Oicha, Mavivi, Mbau and Eringeti.'),
   (3, 3, 'In response, VISUMO consolidated a model that combines community listening, safe referral orientation, psychosocial first aid, disability inclusion, HIV and SRHR information, local accountability dialogues and advocacy with health and protection actors.'),
-  (3, 4, 'Financially, the report presents an income-focused view of VISUMO''s organisational growth. VISUMO''s audited income increased from USD 304,797.36 in 2024 to USD 349,529.25 in 2025.'),
   (5, 1, 'VISUMO operates in a fragile and conflict-affected environment. In North Kivu, the daily lives of women and girls are shaped by insecurity, displacement, disrupted livelihoods, family separation, stigma and limited access to confidential health and protection services.'),
   (5, 2, 'Beni and surrounding communities are especially important to VISUMO''s future work because they combine multiple vulnerabilities: displacement, poverty, sexual violence, HIV risk, unwanted pregnancy, disability exclusion and weak referral pathways.'),
   (5, 3, 'In this context, VISUMO''s approach is practical. The organisation does not present itself as a parallel clinic. It works as a community-based bridge between survivors and the systems responsible for protecting them.'),
@@ -40,38 +33,26 @@ INSERT OR IGNORE INTO section_paragraphs (section_number, sort_order, body) VALU
   (8, 1, 'VISUMO''s most distinctive contribution is the commitment to make disabled survivors visible in GBV and SRHR advocacy. Women and girls with disabilities often experience violence and pregnancy-related risks while being excluded from information and complaint systems.'),
   (8, 2, 'The ISACAD model responds by placing women and adolescent girls with disabilities in leadership, not only as beneficiaries.'),
   (9, 1, 'VISUMO''s legal identity and community mission include the rights and dignity of indigenous/autochthonous women and girls in North Kivu.'),
-  (9, 2, 'VISUMO''s report uses the language of local dignity: women are not passive beneficiaries. They are mothers, youth leaders, survivors, peer supporters, indigenous/autochthonous community members and community organisers.'),
+  (9, 2, 'VISUMO''s work is grounded in local dignity: women are not passive beneficiaries. They are mothers, youth leaders, survivors, peer supporters, indigenous/autochthonous community members and community organisers.'),
   (10, 1, 'VISUMO uses community-friendly health wording so posters and outreach messages are understandable for women with limited literacy.'),
   (11, 1, 'VISUMO''s work depends on cooperation with local actors because survivor safety cannot be carried by one organisation alone.'),
   (11, 2, 'The goal is not only to refer survivors but to change the way services respond.'),
-  (13, 1, 'The five-year income line gives partners a clearer view of VISUMO''s resource mobilisation trajectory. The strongest audited increase is visible from 2024 to 2025, where income rose by USD 44,731.89.'),
-  (14, 1, 'The income profile shows that donor grants and programme support remain the largest financing source.'),
   (15, 1, 'VISUMO''s monitoring approach protects survivors while producing useful evidence for advocacy.'),
-  (16, 1, 'VISUMO''s credibility depends on how safely it handles sensitive information.'),
+  (16, 1, 'VISUMO''s credibility depends on how safely it handles sensitive information. Consent, confidentiality and dignity guide every photo, referral note, testimony and public communication.'),
   (17, 1, 'VISUMO works in a setting where good intentions are not enough. Programmes must be realistic about insecurity, stigma, weak transport, poverty, disability barriers, mistrust of authorities and the emotional weight carried by survivors.'),
-  (18, 1, 'VISUMO''s next stage is to strengthen ISACAD as a practical, locally owned disability-led advocacy model.'),
-  (19, 1, 'Evidence summary: the report uses exact USD income amounts, bilingual Kiswahili and French testimonies, local indigenous/autochthonous community framing, graphics, tables and a visual dashboard.'),
-  (20, 1, 'VISUMO closes this report with a commitment to keep women and girls at the centre of its work.'),
-  (21, 1, 'This Annual Narrative Report for the period January-December 2025 has been prepared by Violence Survivors Mothers (VISUMO).'),
-  (21, 2, 'We confirm that the information presented in this report reflects VISUMO''s programme activities, organisational learning, community accountability practices and financial records for 2025.');
+  (18, 1, 'VISUMO''s next stage is to strengthen ISACAD as a practical, locally owned disability-led advocacy model.');
 
 INSERT OR IGNORE INTO callouts (slug, section_number, heading, body, sort_order) VALUES
-  ('report-focus', NULL, 'Report focus', 'This report presents VISUMO as a survivor-led, locally rooted organisation working with women and girls affected by violence, displacement, disability exclusion and SRHR stigma in North Kivu.', 1),
-  ('identity-statement', 1, 'Identity statement', 'VISUMO is positioned in this report as a local, survivor-led and community-rooted organisation. Its legitimacy comes from both legal registration and day-to-day trust with women, indigenous/autochthonous communities and survivors who are often excluded from formal systems.', 2),
-  ('evidence-note', 2, 'Evidence note', 'Audited 2024 and 2025 income figures are drawn from VISUMO UBT audited financial statements. The 2021-2023 comparative figures are drawn from internal financial records for trend context.', 3),
-  ('image-use-note', 2, 'Image-use note', 'VISUMO applies consent, confidentiality and survivor-safety principles to all photos and visual materials used for organisational reporting, partner communication and community accountability.', 4),
+  ('identity-statement', 1, 'Identity statement', 'VISUMO is a local, survivor-led and community-rooted organisation. Its legitimacy comes from both legal registration and day-to-day trust with women, indigenous/autochthonous communities and survivors who are often excluded from formal systems.', 2),
+  ('image-use-note', 16, 'Image-use note', 'VISUMO applies consent, confidentiality and survivor-safety principles to all photos and visual materials used in organisational communications, partner engagement and community accountability.', 4),
   ('message-to-partners', 3, '2025 message to partners', 'VISUMO is locally rooted, legally recognised, financially traceable, survivor-led and ready to strengthen disability-inclusive SRHR advocacy in North Kivu.', 5),
-  ('report-focus-2025', 4, '2025 report focus', 'The report presents VISUMO''s 2021-2025 income trend, bilingual beneficiary testimonies, indigenous/community framing, ethics language and the organisation''s readiness to strengthen disability-inclusive SRHR accountability.', 6),
   ('guiding-principle', 6, 'Guiding principle', 'No survivor is denied dignity because she is poor, displaced, indigenous, disabled, HIV-affected, pregnant from violence or afraid to speak publicly.', 7),
   ('dignity-messages', 9, 'Community dignity messages', 'French: «Femmes autochtones, femmes rurales, femmes en situation de handicap: vos droits, votre santé, votre dignité.»\nKiswahili: "Wanawake wa asili na wa vijijini: afya, haki na heshima."', 8),
   ('communications-rule', 10, 'Communications rule', 'Every VISUMO poster answers three questions clearly: What is the service? Why does it matter? Where can a woman safely ask for guidance?', 9),
-  ('protection-note', 12, 'Protection note', 'The testimonies below are anonymised and composite-style statements prepared for safe reporting. VISUMO uses them only in non-identifying form unless written informed consent has been provided.', 10),
-  ('financial-message', 14, 'Financial message', 'VISUMO presents financial information in exact USD amounts, not rounded thousands, to show transparency and donor-facing precision.', 11),
+  ('protection-note', 12, 'Protection note', 'The testimonies below are anonymised and composite-style statements prepared for safe communication. VISUMO uses them only in non-identifying form unless written informed consent has been provided.', 10),
   ('learning-rhythm', 15, 'Learning rhythm', 'Quarterly reflection meetings with peer advocates review what is changing, what remains unsafe and which advocacy message needs adjustment.', 12),
   ('ethical-photography', 16, 'Ethical photography rule', 'VISUMO uses images publicly only when the people shown have consented, understand the purpose and are not placed at risk because of the topic or setting.', 13),
-  ('sustainability-statement', 18, 'Sustainability statement', 'By strengthening peer advocates, accessible tools, local commitments and financial systems, VISUMO can continue survivor-led SRHR advocacy beyond a single funding cycle.', 14),
-  ('quality-assurance', 19, 'Quality assurance note', 'This report has been checked for consistency of DRC/North Kivu positioning, financial figures, disability inclusion, indigenous/autochthonous framing, ethics language and visual presentation.', 15),
-  ('external-sharing', 19, 'External sharing note', 'This report may be shared with donors, partners, community stakeholders and VISUMO governance bodies together with relevant registration, programme and audited financial documents when requested.', 16);
+  ('sustainability-statement', 18, 'Sustainability statement', 'By strengthening peer advocates, accessible tools, local commitments and financial systems, VISUMO can continue survivor-led SRHR advocacy beyond a single funding cycle.', 14);
 
 INSERT OR IGNORE INTO locations (name, kind, sort_order) VALUES
   ('Beni', 'Town (primary operating base)', 1),
@@ -81,7 +62,7 @@ INSERT OR IGNORE INTO locations (name, kind, sort_order) VALUES
   ('Eringeti', 'Displacement-affected community', 5);
 
 INSERT OR IGNORE INTO organisation_profile (element, details, sort_order) VALUES
-  ('Organisation name used in this report', 'Violence Survivors Mothers (VISUMO)', 1),
+  ('Organisation name', 'Violence Survivors Mothers (VISUMO)', 1),
   ('Community identity', 'Survivor-led women''s organisation supporting women and girls affected by violence, displacement, trauma, disability exclusion and SRHR stigma', 2),
   ('Country and province', 'Democratic Republic of the Congo - North Kivu', 3),
   ('Primary operating geography', 'Beni town and displacement-affected communities around Beni, including Oicha, Mavivi, Mbau and Eringeti', 4),
@@ -168,13 +149,13 @@ INSERT OR IGNORE INTO income_source_amounts (source_id, report_year, amount_usd)
 
 INSERT OR IGNORE INTO me_indicators (area, indicator, data_source, sort_order) VALUES
   ('Peer leadership', 'Number of women and girls with disabilities trained as peer advocates', 'Training registers, consent-safe attendance sheets', 1),
-  ('Information and referrals', 'Number of women/survivors receiving safe information or referral orientation', 'Anonymous referral logs and peer reports', 2),
+  ('Information and referrals', 'Number of women/survivors receiving safe information or referral orientation', 'Anonymous referral logs and peer feedback', 2),
   ('Service barriers', 'Types of barriers reported: fees, stigma, late referral, inaccessible communication', 'Barrier forms and quarterly analysis', 3),
   ('Accountability', 'Number of facility or authority commitments made and followed up', 'Dialogue minutes and commitment tracker', 4),
   ('Community learning', 'Changes in knowledge of post-rape care, family planning, HIV testing and survivor rights', 'Pre/post forms, focus groups and learning meetings', 5);
 
 INSERT OR IGNORE INTO safeguarding_risks (risk, action_taken, sort_order) VALUES
-  ('Identifying survivors in reports or images', 'Use anonymous or composite stories unless written informed consent exists.', 1),
+  ('Identifying survivors in public materials or images', 'Use anonymous or composite stories unless written informed consent exists.', 1),
   ('Community backlash around abortion-related information', 'Use rights-based, legally careful language and focus on safe information, referrals and post-abortion care.', 2),
   ('Data leaks from referral records', 'Limit access to staff with protection roles; use secure storage and coded referral logs.', 3),
   ('Exclusion of Deaf, blind or intellectually disabled women', 'Use accessible communication, trusted accompaniment and disability focal points.', 4),
@@ -185,7 +166,7 @@ INSERT OR IGNORE INTO challenges (challenge, mitigation, lesson, sort_order) VAL
   ('Stigma around SRHR, HIV and abortion care', 'Frame messages around dignity, safety, rights and confidential referral rather than public exposure.', 'Language matters; short French/Kiswahili messages work better than technical abbreviations.', 2),
   ('Disability exclusion remains normalized', 'Make women with disabilities peer advocates and evidence holders.', 'Inclusion must be led by disabled women, not only discussed by others.', 3),
   ('Small-team financial control pressures', 'Strengthen separation of approvals, payments, recording and review.', 'Donor confidence grows when systems improve alongside programmes.', 4),
-  ('Survivor stories can create risk', 'Use composite testimonies and obtain consent before public images or quotes.', 'Protection is part of quality reporting.', 5);
+  ('Survivor stories can create risk', 'Use composite testimonies and obtain consent before public images or quotes.', 'Protection is part of good communication.', 5);
 
 INSERT OR IGNORE INTO priorities_2026 (sort_order, priority) VALUES
   (1, 'Maintain and mentor Disability SRHR Advocacy Peer Groups in Beni, Oicha, Mavivi, Mbau and Eringeti.'),
@@ -193,15 +174,7 @@ INSERT OR IGNORE INTO priorities_2026 (sort_order, priority) VALUES
   (3, 'Strengthen referral protocols with health centres, psychosocial workers, legal aid providers, police/protection actors and disability organisations.'),
   (4, 'Develop accessible French/Kiswahili SRHR materials on post-rape care, family planning, HIV testing, safe pregnancy and post-abortion care.'),
   (5, 'Use scorecards and commitment trackers to secure practical changes from service providers and authorities.'),
-  (6, 'Strengthen safeguarding, data protection, financial management, reporting and fundraising systems.');
-
-INSERT OR IGNORE INTO evidence_sources (source_item, report_use, sort_order) VALUES
-  ('2024 audited income', 'USD 304,797.36, from UBT audited financial statements for year ended 31 December 2024.', 1),
-  ('2025 audited income', 'USD 349,529.25, from UBT audited financial statements for year ended 31 December 2025.', 2),
-  ('2023 comparative income', 'USD 304,647.36, from internal financial records for trend analysis.', 3),
-  ('2022 comparative income', 'USD 304,517.36, from internal financial records for trend analysis.', 4),
-  ('2021 comparative income', 'USD 304,317.36, from internal financial records for trend analysis.', 5),
-  ('Project design figures', 'ISACAD design: 30 months, 5 priority locations, 35 peer advocates, 10 trainers, about 700 survivors/women targeted for safe information and referrals.', 6);
+  (6, 'Strengthen safeguarding, data protection, monitoring and fundraising systems.');
 
 INSERT OR IGNORE INTO project_design_figures (figure_value, label, detail, is_approximate, sort_order) VALUES
   ('5', 'priority locations', 'Beni, Oicha, Mavivi, Mbau, Eringeti', 0, 1),
@@ -210,22 +183,11 @@ INSERT OR IGNORE INTO project_design_figures (figure_value, label, detail, is_ap
   ('700', 'women / survivors', 'Targeted for safe information and referrals', 1, 4),
   ('30', 'months', 'ISACAD design period', 0, 5);
 
-INSERT OR IGNORE INTO document_control (field_name, details, sort_order) VALUES
-  ('Prepared for', 'Donors, partners, community stakeholders and VISUMO governance bodies', 1),
-  ('Reporting year', '2025', 2),
-  ('Reporting period', 'January-December 2025', 3),
-  ('Primary location', 'North Kivu, Democratic Republic of the Congo', 4),
-  ('Report status', 'Final organisational report for partner and donor due diligence', 5),
-  ('Authorised representative', 'MAOMBI Sarah', 6),
-  ('Position', 'Executive Director', 7),
-  ('Date of approval', '14/02/2026', 8);
-
 INSERT OR IGNORE INTO site_settings (setting_key, setting_value) VALUES
   ('site_name', 'VISUMO'),
   ('org_full_name', 'Violence Survivors Mothers'),
   ('tagline', 'Survivor-led dignity, disability inclusion and SRHR accountability in North Kivu, Democratic Republic of the Congo'),
   ('hero_headline', 'From silence to dignity. From exclusion to voice.'),
-  ('reporting_period', 'January-December 2025'),
   ('footer_note', 'Violence Survivors Mothers (VISUMO) | North Kivu, DRC'),
   ('sw_motto', 'Tuko pamoja, tutavunja ukimya!');
 
