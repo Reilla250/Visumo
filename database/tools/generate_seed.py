@@ -31,7 +31,6 @@ def q(v):
 SECTIONS = [
     (1, "identity", "Organisational identity and profile", True),
     (3, "executive-summary", "Executive summary", True),
-    (4, "dashboard", "2025 strategic dashboard", True),
     (5, "context", "Operating context in North Kivu", True),
     (6, "theory-of-change", "Theory of change and programme model", True),
     (7, "outreach", "Community outreach, SRHR information and safe referrals", True),
@@ -53,12 +52,12 @@ PARAGRAPHS = {
     ],
     3: [
         "VISUMO entered 2025 with a clear identity: a survivor-led civil society organisation in North Kivu that stands beside women and girls affected by violence, displacement, trauma, HIV-related stigma, disability exclusion and barriers to sexual and reproductive health and rights. The year confirmed that VISUMO's greatest strength is not only its proximity to communities, but the trust it has built among women who are often ignored by formal systems.",
-        "The organisation's work is shaped by the realities of Beni and surrounding displacement-affected communities, including Oicha, Mavivi, Mbau and Eringeti. In these areas, conflict and economic hardship increase exposure to sexual violence, unwanted pregnancy, unsafe abortion, untreated post-rape complications, HIV vulnerability, stigma and delayed access to care. Women and adolescent girls with disabilities face an even higher risk because communication, transport, confidentiality and referral systems often exclude them.",
-        "In response, VISUMO consolidated a model that combines community listening, safe referral orientation, psychosocial first aid, disability inclusion, HIV and SRHR information, local accountability dialogues and advocacy with health and protection actors. VISUMO is preparing to scale the Inclusive Safety and Abortion Care Desk (ISACAD), a disability-led advocacy model focused on safe information, referrals and accountability for GBV survivors' abortion and post-abortion care where legally permitted.",
+        "The organisation works with communities affected by displacement, where conflict and economic hardship increase exposure to violence, health risks, stigma and delayed access to care. Women and adolescent girls with disabilities face additional barriers when communication, transport, confidentiality and referral systems do not meet their needs.",
+        "VISUMO combines community listening, confidential referral orientation, psychosocial first aid, disability inclusion, health information and dialogue with relevant actors to support safe and respectful services for survivors.",
     ],
     5: [
         "VISUMO operates in a fragile and conflict-affected environment. In North Kivu, the daily lives of women and girls are shaped by insecurity, displacement, disrupted livelihoods, family separation, stigma and limited access to confidential health and protection services. Rural communities and indigenous/autochthonous women often face additional exclusion from decision-making, service information and public accountability mechanisms.",
-        "Beni and surrounding communities are especially important to VISUMO's future work because they combine multiple vulnerabilities: displacement, poverty, sexual violence, HIV risk, unwanted pregnancy, disability exclusion and weak referral pathways. Survivors may know that care exists but still fail to reach it because they lack transport, fear stigma, cannot communicate safely with providers, or face costs and judgment at the service point.",
+        "Displacement-affected communities face overlapping vulnerabilities, including poverty, violence, health risks, disability exclusion and weak referral pathways. Survivors may know that care exists but still fail to reach it because they lack transport, fear stigma, cannot communicate safely with providers, or face costs and judgment at the service point.",
         "In this context, VISUMO's approach is practical. The organisation does not present itself as a parallel clinic. It works as a community-based bridge between survivors and the systems responsible for protecting them: health facilities, psychosocial workers, legal aid, police/protection actors, community leaders, women's groups and local authorities.",
     ],
     6: [
@@ -70,7 +69,7 @@ PARAGRAPHS = {
     ],
     8: [
         "VISUMO's most distinctive contribution is the commitment to make disabled survivors visible in GBV and SRHR advocacy. Women and girls with disabilities often experience violence and pregnancy-related risks while being excluded from information and complaint systems. A Deaf survivor may not find a safe interpreter. A blind young mother may fail to reach a facility on time. A survivor with an intellectual disability may be hidden by relatives because of shame.",
-        "The ISACAD model responds by placing women and adolescent girls with disabilities in leadership, not only as beneficiaries. Peer advocates will help shape messages, document barriers and bring evidence into dialogues with health centres, police, protection actors and local authorities. The model also promotes practical changes: disability focal points, sign-language support, accessible SRHR materials, safe referral protocols and respectful treatment.",
+        "VISUMO promotes the participation and leadership of women and adolescent girls with disabilities. Dialogue with health centres, protection actors and local authorities can help improve accessibility, referrals and the treatment of survivors.",
     ],
     9: [
         "VISUMO's legal identity and community mission include the rights and dignity of indigenous/autochthonous women and girls. In North Kivu, these communities can face overlapping exclusion: poverty, limited schooling, low representation in public forums, weak access to health information, displacement pressure and stigma when women report violence or pregnancy-related complications.",
@@ -81,7 +80,7 @@ PARAGRAPHS = {
     ],
     11: [
         "VISUMO's work depends on cooperation with local actors because survivor safety cannot be carried by one organisation alone. The strongest referral pathway connects women's groups, disability organisations, community volunteers, health centres, psychosocial workers, legal aid providers, police/protection actors, local authorities and responsible media.",
-        "The goal is not only to refer survivors but to change the way services respond. Community scorecards, barrier forms and dialogue minutes can help VISUMO move from isolated complaints to evidence-based advocacy. If several peer advocates report the same barrier - costs, poor privacy, lack of sign-language support or judgemental treatment - VISUMO can present this evidence to service actors and seek practical commitments.",
+        "The goal is not only to refer survivors but to encourage services to respond with dignity, confidentiality and respect.",
     ],
     15: [
         "VISUMO's monitoring approach protects survivors while producing useful evidence for advocacy. Because the work includes GBV, abortion-related information, HIV stigma and disability exclusion, the organisation avoids collecting unnecessary personal details. Evidence focuses on barriers, referrals, commitments and community learning rather than names and stories that could expose survivors.",
@@ -93,7 +92,7 @@ PARAGRAPHS = {
         "VISUMO works in a setting where good intentions are not enough. Programmes must be realistic about insecurity, stigma, weak transport, poverty, disability barriers, mistrust of authorities and the emotional weight carried by survivors. The 2025 learning agenda therefore focused on being close to communities while strengthening systems that donors and partners can trust.",
     ],
     18: [
-        "VISUMO's next stage is to strengthen ISACAD as a practical, locally owned disability-led advocacy model. Sustainability will come from people, tools, commitments and systems that remain after individual grants end.",
+        "VISUMO's next stage is to strengthen its safeguarding, accessibility and referral practices.",
     ],
 }
 
@@ -121,35 +120,18 @@ CALLOUTS = [
      "By strengthening peer advocates, accessible tools, local commitments and financial systems, VISUMO can continue survivor-led SRHR advocacy beyond a single funding cycle."),
 ]
 
-LOCATIONS = [
-    ("Beni", "Town (primary operating base)"),
-    ("Oicha", "Displacement-affected community"),
-    ("Mavivi", "Displacement-affected community"),
-    ("Mbau", "Displacement-affected community"),
-    ("Eringeti", "Displacement-affected community"),
-]
-
 PROFILE = [
     ("Organisation name", "Violence Survivors Mothers (VISUMO)"),
     ("Community identity", "Survivor-led women's organisation supporting women and girls affected by violence, displacement, trauma, disability exclusion and SRHR stigma"),
     ("Country and province", "Democratic Republic of the Congo - North Kivu"),
-    ("Primary operating geography", "Beni town and displacement-affected communities around Beni, including Oicha, Mavivi, Mbau and Eringeti"),
     ("Core constituencies", "GBV survivors, young mothers, women and adolescent girls with disabilities, indigenous/autochthonous women, rural women and displaced families"),
     ("Strategic focus", "Dignity, safe referral orientation, disability-led SRHR advocacy, HIV awareness, family planning information, post-rape care pathways and post-abortion care advocacy"),
 ]
 
-DASHBOARD = [
-    ("Survivor-led identity", "VISUMO was created by and for women affected by violence, conflict, displacement and exclusion."),
-    ("Core geography", "North Kivu, with operational focus around Beni town and displacement-affected communities including Oicha, Mavivi, Mbau and Eringeti."),
-    ("Core constituencies", "Women and adolescent girls affected by GBV, disabled survivors, young mothers, displaced women, indigenous/autochthonous women and rural community members."),
-    ("SRHR focus", "Post-rape care, emergency contraception information, family planning, HIV awareness, safe pregnancy, lawful abortion information where permitted, post-abortion care and confidential referrals."),
-    ("Advocacy model", "Peer groups, community dialogues, accessible materials, local radio, health-facility dialogues, scorecards and commitments from service actors."),
-]
-
 THEORY = [
     ("Problem", "Conflict, displacement, disability exclusion and stigma prevent survivors from claiming safe SRHR information, post-rape care, HIV services, family planning, lawful abortion information where permitted and post-abortion care."),
-    ("Inputs", "Survivor trust, peer advocates, disability inclusion skills, community volunteers, referral partners, health workers, local radio and accountability tools."),
-    ("Activities", "Community dialogues, peer support groups, accessible information, referral orientation, service mapping, scorecards, facility dialogues and advocacy meetings."),
+    ("Inputs", "Survivor trust, disability inclusion skills, community volunteers, referral partners and health workers."),
+    ("Activities", "Community dialogues, accessible information, referral orientation and exchanges with relevant actors."),
     ("Outputs", "Informed women, trained advocates, documented barriers, safer referrals, service commitments and reduced silence around SRHR and GBV."),
     ("Outcome", "Disabled survivors, indigenous/autochthonous women and rural women can speak, seek help and influence local SRHR and GBV systems with dignity."),
 ]
@@ -157,7 +139,7 @@ THEORY = [
 ASSUMPTIONS = [
     ("Community trust", "Use peer advocates and trusted women leaders rather than one-off public meetings."),
     ("Safe access", "Bring information closer to host-family areas, informal sites, churches, markets and rural villages."),
-    ("System change", "Convert repeated survivor barriers into scorecards, facility dialogue points and written commitments."),
+    ("System change", "Use dialogue with service providers to improve access, confidentiality and respectful treatment."),
 ]
 
 MESSAGES = [
@@ -188,11 +170,10 @@ TERMS = [
 ]
 
 STAKEHOLDERS = [
-    ("Health centres and Beni health zone", "Confidential care, respectful treatment, post-rape care, family planning and post-abortion care where appropriate."),
+    ("Health centres", "Confidential care, respectful treatment, post-rape care, family planning and post-abortion care where appropriate."),
     ("Police and protection actors", "Safe reporting, survivor protection and non-discriminatory treatment."),
     ("Disability organisations", "Accessibility advice, sign-language contacts and peer leadership."),
     ("Women leaders and churches", "Trusted community entry points and support for survivors who fear stigma."),
-    ("Local radio and journalists", "Stigma reduction messages without exposing survivors' identities."),
 ]
 
 TESTIMONIES = [
@@ -246,21 +227,12 @@ CHALLENGES = [
 ]
 
 PRIORITIES = [
-    "Maintain and mentor Disability SRHR Advocacy Peer Groups in Beni, Oicha, Mavivi, Mbau and Eringeti.",
+    "Improve access to health and protection services for women with disabilities.",
     "Train women and adolescent girls with disabilities as peer advocates and prepare selected advocates as trainers.",
     "Strengthen referral protocols with health centres, psychosocial workers, legal aid providers, police/protection actors and disability organisations.",
     "Develop accessible French/Kiswahili SRHR materials on post-rape care, family planning, HIV testing, safe pregnancy and post-abortion care.",
-    "Use scorecards and commitment trackers to secure practical changes from service providers and authorities.",
+    "Continue dialogue with service providers and authorities to improve services for survivors.",
     "Strengthen safeguarding, data protection, monitoring and fundraising systems.",
-]
-
-# (value, label, detail, approximate)
-FIGURES = [
-    (5, "priority locations", "Beni, Oicha, Mavivi, Mbau, Eringeti", False),
-    (35, "peer advocates", "Women and girls with disabilities", False),
-    (10, "trainers", "Selected advocates prepared as trainers", False),
-    (700, "women / survivors", "Targeted for safe information and referrals", True),
-    (30, "months", "ISACAD design period", False),
 ]
 
 SETTINGS = [
@@ -276,8 +248,6 @@ SETTINGS = [
 IMAGES = [
     ("hero-community.jpg", None, "VISUMO community visual identity: SRHR information, disability inclusion, safe referrals and rural outreach.",
      "Collage of VISUMO community activities: outreach, disability-inclusive sport, prenatal care, HIV testing, family planning and a safe space for survivors"),
-    ("dashboard.png", 4, "Strategic programme figures drawn from VISUMO's ISACAD scale-up design and 2025 organisational positioning.",
-     "Four tiles: 5 priority locations, 35 peer advocates, 700 women and survivors, 10 local commitments"),
     ("community-solidarity.jpg", 5, "Community prayer and solidarity around a sports field: a visual reminder that local mobilisation often begins where communities gather naturally.",
      "Community members in VISUMO t-shirts gathered together"),
     ("srhr-education.jpg", 7, "Community SRHR education in a rural setting: VISUMO messaging uses simple language and local trust points.",
@@ -314,9 +284,7 @@ def build_body():
     out.append(insert("section_paragraphs", ["section_number", "sort_order", "body"], rows))
     out.append(insert("callouts", ["slug", "section_number", "heading", "body", "sort_order"],
                       [(s, n, h, b, i) for i, (s, n, h, b) in enumerate(CALLOUTS, 1)]))
-    out.append(insert("locations", ["name", "kind", "sort_order"], [(a, b, i) for i, (a, b) in enumerate(LOCATIONS, 1)]))
     out.append(insert("organisation_profile", ["element", "details", "sort_order"], [(a, b, i) for i, (a, b) in enumerate(PROFILE, 1)]))
-    out.append(insert("dashboard_areas", ["area", "position_text", "sort_order"], [(a, b, i) for i, (a, b) in enumerate(DASHBOARD, 1)]))
     out.append(insert("theory_of_change", ["logic_level", "model_text", "sort_order"], [(a, b, i) for i, (a, b) in enumerate(THEORY, 1)]))
     out.append(insert("operational_assumptions", ["assumption", "application", "sort_order"], [(a, b, i) for i, (a, b) in enumerate(ASSUMPTIONS, 1)]))
     out.append(insert("community_messages", ["message_type", "lang", "wording", "sort_order"], [(a, l, b, i) for i, (a, l, b) in enumerate(MESSAGES, 1)]))
@@ -336,7 +304,6 @@ def build_body():
     out.append(insert("safeguarding_risks", ["risk", "action_taken", "sort_order"], [(a, b, i) for i, (a, b) in enumerate(RISKS, 1)]))
     out.append(insert("challenges", ["challenge", "mitigation", "lesson", "sort_order"], [(a, b, c, i) for i, (a, b, c) in enumerate(CHALLENGES, 1)]))
     out.append(insert("priorities_2026", ["sort_order", "priority"], [(i, p) for i, p in enumerate(PRIORITIES, 1)]))
-    out.append(insert("project_design_figures", ["figure_value", "label", "detail", "is_approximate", "sort_order"], [(v, l, d, a, i) for i, (v, l, d, a) in enumerate(FIGURES, 1)]))
     out.append(insert("site_settings", ["setting_key", "setting_value"], SETTINGS))
     out.append(insert("site_images", ["filename", "section_number", "caption", "alt_text", "sort_order"], [(f, s, c, a, i) for i, (f, s, c, a) in enumerate(IMAGES, 1)]))
     return "".join(out)

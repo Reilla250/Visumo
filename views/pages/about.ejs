@@ -122,24 +122,6 @@
   </div>
 </section>
 
-<section class="section">
-  <div class="wrap">
-    <%- include('../partials/section-head', { n: 4 }) %>
-    <%- include('../partials/figure', { file: 'dashboard.png', cls: 'figure-wide' }) %>
-    <div class="table-wrap">
-      <table>
-        <caption class="sr-only"><%= t.about_dashboard_caption %></caption>
-        <thead><tr><th scope="col"><%= t.about_dashboard_area %></th><th scope="col"><%= t.about_dashboard_position %></th></tr></thead>
-        <tbody>
-          <% c.dashboard.forEach(function (r) { %>
-          <tr><th scope="row"><%= r.area %></th><td><%= r.position_text %></td></tr>
-          <% }) %>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
 <section class="section alt">
   <div class="wrap">
     <%- include('../partials/section-head', { n: 5 }) %>

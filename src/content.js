@@ -14,17 +14,15 @@ let inflight = null;
 
 async function load() {
   const [
-    settingsRows, sections, paragraphs, callouts, locations, profile, dashboard, theory, assumptions,
+    settingsRows, sections, paragraphs, callouts, profile, theory, assumptions,
     messages, barriers, outreach, terms, stakeholders, testimonies,
-    indicators, risks, challenges, priorities, figures, images,
+    indicators, risks, challenges, priorities, images,
   ] = await Promise.all([
     query('SELECT setting_key, setting_value FROM site_settings'),
     query('SELECT section_number, slug, title, listed_in_contents FROM report_sections ORDER BY section_number'),
     query('SELECT section_number, sort_order, body FROM section_paragraphs ORDER BY section_number, sort_order'),
     query('SELECT slug, section_number, heading, body FROM callouts ORDER BY sort_order'),
-    query('SELECT name, kind FROM locations ORDER BY sort_order'),
     query('SELECT element, details FROM organisation_profile ORDER BY sort_order'),
-    query('SELECT area, position_text FROM dashboard_areas ORDER BY sort_order'),
     query('SELECT logic_level, model_text FROM theory_of_change ORDER BY sort_order'),
     query('SELECT assumption, application FROM operational_assumptions ORDER BY sort_order'),
     query('SELECT message_type, lang, wording FROM community_messages ORDER BY sort_order'),
@@ -37,7 +35,6 @@ async function load() {
     query('SELECT risk, action_taken FROM safeguarding_risks ORDER BY sort_order'),
     query('SELECT challenge, mitigation, lesson FROM challenges ORDER BY sort_order'),
     query('SELECT priority FROM priorities_2026 ORDER BY sort_order'),
-    query('SELECT figure_value, label, detail, is_approximate FROM project_design_figures ORDER BY sort_order'),
     query('SELECT filename, section_number, caption, alt_text FROM site_images ORDER BY sort_order'),
   ]);
 
@@ -62,9 +59,7 @@ async function load() {
     paras,
     call,
     img,
-    locations,
     profile,
-    dashboard,
     theory,
     assumptions,
     messages,
@@ -77,7 +72,6 @@ async function load() {
     risks,
     challenges,
     priorities: priorities.map((p) => p.priority),
-    figures: figures.map((f) => ({ ...f, is_approximate: !!f.is_approximate })),
   });
 }
 

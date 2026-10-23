@@ -16,25 +16,6 @@
   </div>
 </section>
 
-<section class="band" aria-label="<%= t.key_figures %>">
-  <div class="wrap">
-    <ul class="stats">
-      <% c.figures.forEach(function (f) { %>
-      <li>
-        <span class="stat-num"><%= f.is_approximate ? (lang === 'en' ? 'approx. ' : lang === 'sw' ? 'takriban ' : 'environ ') : '' %><%= f.figure_value %></span>
-        <span class="stat-label"><%= f.label %></span>
-        <span class="stat-detail"><%= f.detail %></span>
-      </li>
-      <% }) %>
-    </ul>
-    <p class="small center muted">
-      <% if (lang === 'en') { %>ISACAD programme objectives: 30 months in 5 priority zones.
-      <% } else if (lang === 'sw') { %>Malengo ya programu ISACAD: miezi 30 katika kanda 5 za kipaumbele.
-      <% } else { %>Objectifs du programme ISACAD : 30 mois dans 5 zones prioritaires.<% } %>
-    </p>
-  </div>
-</section>
-
 <section class="section">
   <div class="wrap two-col">
     <div>
@@ -47,34 +28,6 @@
     <div>
       <%- include('../partials/callout', { slug: 'identity-statement' }) %>
       <%- include('../partials/callout', { slug: 'guiding-principle' }) %>
-    </div>
-  </div>
-</section>
-
-<section class="section alt">
-  <div class="wrap">
-    <p class="eyebrow"><%= t.where_we_act %></p>
-    <h2><% if (lang === 'en') { %>Beni and displacement-affected communities<% } else if (lang === 'sw') { %>Beni na jamii zilizoathiriwa na uhamisho<% } else { %>Beni et les communautés touchées par les déplacements<% } %></h2>
-    <ul class="chips">
-      <% c.locations.forEach(function (l) { %>
-      <li><strong><%= l.name %></strong><span><%= l.kind %></span></li>
-      <% }) %>
-    </ul>
-    <p class="narrow"><%= c.paras[5][1] %></p>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <p class="eyebrow"><%= t.our_work %></p>
-    <h2><% if (lang === 'en') { %>The principles guiding our work<% } else if (lang === 'sw') { %>Kanuni zinazoongoza kazi yetu<% } else { %>Les principes qui guident notre travail<% } %></h2>
-    <div class="cards">
-      <% c.dashboard.forEach(function (d) { %>
-      <article class="card">
-        <h3><%= d.area %></h3>
-        <p><%= d.position_text %></p>
-      </article>
-      <% }) %>
     </div>
   </div>
 </section>

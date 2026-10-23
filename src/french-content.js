@@ -4,7 +4,6 @@ const translations = {
   sections: {
     1: "Identité et profil de l'organisation",
     3: 'Résumé exécutif',
-    4: 'Bilan stratégique 2025',
     5: 'Contexte d’intervention au Nord-Kivu',
     6: 'Théorie du changement et modèle de programme',
     7: 'Mobilisation communautaire, santé sexuelle et reproductive et orientations sûres',
@@ -32,12 +31,12 @@ const translations = {
     ],
     3: [
       'En 2025, VISUMO a poursuivi une mission claire : être une organisation de la société civile dirigée par des survivantes au Nord-Kivu, aux côtés des femmes et des filles touchées par les violences, les déplacements, les traumatismes, la stigmatisation liée au VIH, l’exclusion liée au handicap et les obstacles à l’accès aux droits en santé sexuelle et reproductive. L’année a confirmé que la principale force de VISUMO réside autant dans sa proximité avec les communautés que dans la confiance qu’elle a construite auprès de femmes souvent ignorées par les services habituels.',
-      'Le travail de l’organisation s’appuie sur les réalités de Beni et des communautés voisines affectées par les déplacements, notamment Oicha, Mavivi, Mbau et Eringeti. Les conflits et les difficultés économiques y aggravent les risques de violences sexuelles, de grossesses non désirées, de complications après un viol non prises en charge, d’exposition au VIH, de stigmatisation et de retards d’accès aux soins. Les femmes et les adolescentes en situation de handicap sont particulièrement exposées, car la communication, le transport, la confidentialité et les mécanismes d’orientation ne tiennent pas toujours compte de leurs besoins.',
-      'VISUMO a renforcé un modèle associant l’écoute communautaire, l’orientation confidentielle vers les services, le soutien psychosocial de première ligne, l’inclusion du handicap, l’information sur le VIH et la santé sexuelle et reproductive, le dialogue sur la redevabilité locale et le plaidoyer auprès des acteurs de santé et de protection. VISUMO prépare le développement du bureau inclusif de sécurité et de prise en charge de l’avortement (ISACAD), un modèle de plaidoyer dirigé par des personnes en situation de handicap. Celui-ci vise une information sûre, l’orientation vers les services et une meilleure redevabilité pour les soins liés à l’avortement et après l’avortement, dans le respect de la loi.',
+      'Le travail de l’organisation s’appuie sur les réalités de communautés affectées par les déplacements. Les conflits et les difficultés économiques aggravent les risques de violences, de problèmes de santé et de retards d’accès aux services. Les femmes et les adolescentes en situation de handicap sont particulièrement exposées lorsque la communication, le transport, la confidentialité et les mécanismes d’orientation ne tiennent pas compte de leurs besoins.',
+      'VISUMO favorise l’écoute communautaire, l’orientation confidentielle vers les services, le soutien psychosocial de première ligne, l’inclusion du handicap, l’information en santé et le dialogue avec les acteurs concernés. Son action vise à faciliter l’accès à des services sûrs et respectueux, ainsi qu’à renforcer la protection et la dignité des survivantes.',
     ],
     5: [
       'VISUMO intervient dans un contexte fragile marqué par les conflits. Au Nord-Kivu, la vie quotidienne des femmes et des filles est affectée par l’insécurité, les déplacements, la perte de moyens de subsistance, la séparation des familles, la stigmatisation et l’accès limité à des services confidentiels de santé et de protection. Les communautés rurales et les femmes autochtones subissent souvent une exclusion supplémentaire des décisions, de l’information sur les services et des mécanismes publics de redevabilité.',
-      'Beni et les communautés environnantes sont au cœur des projets de VISUMO, car plusieurs facteurs de vulnérabilité s’y cumulent : déplacements, pauvreté, violences sexuelles, risques liés au VIH, grossesses non désirées, exclusion liée au handicap et faiblesse des circuits d’orientation. Les survivantes ne parviennent pas toujours à accéder aux soins disponibles, faute de transport, par crainte de la stigmatisation, parce qu’elles ne peuvent pas communiquer en sécurité avec les prestataires, ou en raison des coûts et du jugement au lieu de prise en charge.',
+      'Dans les communautés affectées par les déplacements, plusieurs facteurs de vulnérabilité se cumulent : pauvreté, violences, risques sanitaires, exclusion liée au handicap et faiblesse des circuits d’orientation. Les survivantes ne parviennent pas toujours à accéder aux soins disponibles, faute de transport, par crainte de la stigmatisation, parce qu’elles ne peuvent pas communiquer en sécurité avec les prestataires, ou en raison des coûts et du jugement au lieu de prise en charge.',
       'VISUMO adopte une approche concrète. L’organisation ne se substitue pas aux centres de santé. Elle fait le lien entre les survivantes et les acteurs chargés de leur protection : formations sanitaires, intervenants psychosociaux, services d’aide juridique, forces de l’ordre et de protection, responsables communautaires, associations de femmes et autorités locales.',
     ],
     6: [
@@ -49,7 +48,7 @@ const translations = {
     ],
     8: [
       'La contribution distinctive de VISUMO est de donner une place visible aux survivantes en situation de handicap dans le plaidoyer contre les violences basées sur le genre et pour les droits en santé sexuelle et reproductive. Les femmes et les filles en situation de handicap subissent des violences et des risques liés à la grossesse tout en étant exclues de l’information et des mécanismes de plainte. Une survivante sourde peut ne pas trouver d’interprète en sécurité ; une jeune mère aveugle peut ne pas parvenir à temps à un centre de santé ; une survivante ayant un handicap intellectuel peut être tenue à l’écart par ses proches par crainte du jugement.',
-      'Le modèle ISACAD place les femmes et les adolescentes en situation de handicap en position de leadership, et non uniquement comme bénéficiaires. Les pairs éducatrices contribueront aux messages, documenteront les obstacles et présenteront les constats dans le cadre d’échanges avec les centres de santé, les forces de l’ordre, les acteurs de protection et les autorités locales. Le modèle encourage également des mesures concrètes : des personnes référentes sur le handicap, un soutien en langue des signes, des supports accessibles sur la santé sexuelle et reproductive, des procédures sûres d’orientation et un accueil respectueux.',
+      'VISUMO favorise la participation et le leadership des femmes et des adolescentes en situation de handicap. Les échanges avec les centres de santé, les acteurs de protection et les autorités locales peuvent contribuer à améliorer l’accessibilité, les orientations et l’accueil des survivantes.',
     ],
     9: [
       'L’identité juridique et la mission communautaire de VISUMO défendent les droits et la dignité des femmes et des filles autochtones. Au Nord-Kivu, ces communautés peuvent cumuler plusieurs formes d’exclusion : pauvreté, accès limité à l’école, faible représentation dans les espaces publics, manque d’informations sur la santé, pression des déplacements et stigmatisation lorsqu’une femme signale des violences ou des complications liées à une grossesse.',
@@ -60,7 +59,7 @@ const translations = {
     ],
     11: [
       'Le travail de VISUMO dépend de la collaboration avec les acteurs locaux, car une seule organisation ne peut assurer seule la sécurité des survivantes. Un circuit d’orientation solide relie les associations de femmes, les organisations de personnes en situation de handicap, les bénévoles communautaires, les centres de santé, les intervenants psychosociaux, les services d’aide juridique, les forces de l’ordre et de protection, les autorités locales et les médias responsables.',
-      'L’objectif n’est pas seulement d’orienter les survivantes, mais aussi d’améliorer la réponse des services. Les fiches de redevabilité communautaire, les formulaires recensant les obstacles et les comptes rendus de dialogue permettent de passer de plaintes isolées à un plaidoyer étayé. Lorsque plusieurs pairs éducatrices signalent les mêmes difficultés — coûts, manque d’intimité, absence d’interprétation en langue des signes ou accueil jugeant — VISUMO peut les présenter aux prestataires et demander des engagements concrets.',
+      'VISUMO encourage les services à répondre aux survivantes avec dignité, confidentialité et respect.',
     ],
     15: [
       'Le dispositif de suivi de VISUMO protège les survivantes tout en recueillant des informations utiles au plaidoyer. Parce que ses activités portent notamment sur les violences basées sur le genre, l’avortement, la stigmatisation liée au VIH et l’exclusion liée au handicap, l’organisation ne recueille pas de données personnelles superflues. Le suivi porte sur les obstacles, les orientations, les engagements et les apprentissages communautaires, et non sur des noms ou des récits susceptibles d’exposer les survivantes.',
@@ -72,7 +71,7 @@ const translations = {
       'Dans le contexte d’intervention de VISUMO, les bonnes intentions ne suffisent pas. Les programmes doivent tenir compte de l’insécurité, de la stigmatisation, des difficultés de transport, de la pauvreté, des obstacles liés au handicap, de la méfiance envers les autorités et de la charge émotionnelle que portent les survivantes. En 2025, VISUMO a cherché à rester proche des communautés tout en consolidant des systèmes fiables pour les partenaires et les bailleurs.',
     ],
     18: [
-      'La prochaine étape de VISUMO consiste à renforcer ISACAD, un modèle de plaidoyer concret, ancré localement et dirigé par des personnes en situation de handicap. Sa pérennité reposera sur les personnes, les outils, les engagements et les systèmes qui subsisteront après la fin des financements ponctuels.',
+      'La prochaine étape de VISUMO consiste à consolider ses pratiques de protection, d’accessibilité et d’orientation. Sa pérennité reposera sur les personnes, les outils, les engagements et les systèmes qui subsisteront après la fin des financements ponctuels.',
     ],
   },
   callouts: {
@@ -92,16 +91,8 @@ const translations = {
       ['Nom de l’organisation', 'Mères survivantes de violences (VISUMO)'],
       ['Identité communautaire', 'Organisation féminine dirigée par des survivantes, qui soutient les femmes et les filles touchées par les violences, les déplacements, les traumatismes, l’exclusion liée au handicap et la stigmatisation en santé sexuelle et reproductive.'],
       ['Pays et province', 'République démocratique du Congo — Nord-Kivu'],
-      ['Principales zones d’intervention', 'Ville de Beni et communautés voisines affectées par les déplacements, notamment Oicha, Mavivi, Mbau et Eringeti.'],
       ['Publics prioritaires', 'Survivantes de violences basées sur le genre, jeunes mères, femmes et adolescentes en situation de handicap, femmes autochtones, femmes rurales et familles déplacées.'],
       ['Axes stratégiques', 'Dignité, orientation sécurisée, plaidoyer en santé sexuelle et reproductive dirigé par des personnes en situation de handicap, information sur le VIH, planification familiale, parcours de soins après un viol et plaidoyer pour les soins après un avortement.'],
-    ],
-    dashboard: [
-      ['Identité dirigée par les survivantes', 'VISUMO a été créée par et pour les femmes touchées par les violences, les conflits, les déplacements et l’exclusion.'],
-      ["Principale zone d’intervention", 'Nord-Kivu, principalement dans la ville de Beni et les communautés voisines affectées par les déplacements, notamment Oicha, Mavivi, Mbau et Eringeti.'],
-      ['Publics prioritaires', 'Femmes et adolescentes touchées par les violences basées sur le genre, survivantes en situation de handicap, jeunes mères, femmes déplacées, femmes autochtones et habitantes des communautés rurales.'],
-      ['Santé sexuelle et reproductive', 'Soins après un viol, information sur la contraception d’urgence, planification familiale, sensibilisation au VIH, grossesse en sécurité, information sur l’avortement légal lorsque la loi l’autorise, soins après un avortement et orientations confidentielles.'],
-      ['Modèle de plaidoyer', 'Groupes de pairs, dialogues communautaires, supports accessibles, radio locale, dialogue avec les centres de santé, fiches de redevabilité et engagements des prestataires de services.'],
     ],
     barriers: [
       ['Absence de soutien en langue des signes', 'Créer des contacts de référence en langue des signes et sensibiliser les prestataires.'],
@@ -111,22 +102,21 @@ const translations = {
     ],
     theory: [
       ['Problème', 'Les conflits, les déplacements, l’exclusion liée au handicap et la stigmatisation empêchent les survivantes d’accéder à une information sûre sur la santé sexuelle et reproductive, aux soins après un viol, aux services liés au VIH, à la planification familiale, aux informations sur les services d’avortement permis par la loi et aux soins après un avortement.'],
-      ['Ressources', 'Confiance des survivantes, pairs éducatrices, compétences en inclusion du handicap, bénévoles communautaires, partenaires d’orientation, personnel de santé, radio locale et outils de redevabilité.'],
-      ['Activités', 'Dialogues communautaires, groupes de soutien entre pairs, informations accessibles, orientation vers les services, cartographie des services, fiches de redevabilité, échanges avec les centres de santé et réunions de plaidoyer.'],
+      ['Ressources', 'Confiance des survivantes, compétences en inclusion du handicap, bénévoles communautaires, partenaires d’orientation et personnel de santé.'],
+      ['Activités', 'Dialogues communautaires, informations accessibles, orientation vers les services et échanges avec les acteurs concernés.'],
       ['Résultats immédiats', 'Des femmes informées, des pairs éducatrices formées, des obstacles documentés, des orientations plus sûres, des engagements des prestataires et une réduction du silence autour de la santé sexuelle et reproductive et des violences basées sur le genre.'],
       ['Changement attendu', 'Les survivantes en situation de handicap et les femmes autochtones et rurales peuvent s’exprimer, demander de l’aide et influencer dignement les dispositifs locaux de santé sexuelle et reproductive et de lutte contre les violences basées sur le genre.'],
     ],
     assumptions: [
       ['Confiance de la communauté', 'S’appuyer sur des pairs éducatrices et des responsables féminines de confiance plutôt que sur des réunions publiques ponctuelles.'],
       ['Accès en toute sécurité', 'Rapprocher l’information des familles d’accueil, sites informels, églises, marchés et villages ruraux.'],
-      ['Évolution des services', 'Transformer les obstacles répétés signalés par les survivantes en fiches de redevabilité, points de discussion avec les centres et engagements écrits.'],
+      ['Évolution des services', 'Favoriser le dialogue avec les prestataires afin d’améliorer l’accès, la confidentialité et le respect des survivantes.'],
     ],
     stakeholders: [
-      ['Centres de santé et zone de santé de Beni', 'Soins confidentiels et respectueux, soins après un viol, planification familiale et soins après un avortement lorsque cela est approprié.'],
+      ['Centres de santé', 'Soins confidentiels et respectueux, soins après un viol, planification familiale et soins après un avortement lorsque cela est approprié.'],
       ['Forces de l’ordre et acteurs de protection', 'Signalement sûr, protection des survivantes et traitement non discriminatoire.'],
       ['Organisations de personnes en situation de handicap', 'Conseils en accessibilité, contacts en langue des signes et leadership des pairs.'],
       ['Responsables féminines et églises', 'Accès aux communautés par des relais de confiance et soutien aux survivantes qui craignent la stigmatisation.'],
-      ['Radios locales et journalistes', 'Messages de lutte contre la stigmatisation qui ne dévoilent pas l’identité des survivantes.'],
     ],
     outreach: [
       ['Lieux de rencontre en milieu rural', 'Marchés, églises, familles d’accueil, groupes d’épargne féminins et rencontres sportives communautaires.'],
@@ -155,26 +145,13 @@ const translations = {
       ['Participation symbolique des femmes autochtones', 'Faire appel à des responsables féminines locales et organiser les échanges dans les lieux et les langues de la communauté.'],
     ],
     priorities: [
-      'Maintenir et accompagner les groupes de pairs éducatrices sur les droits en santé sexuelle et reproductive et le handicap à Beni, Oicha, Mavivi, Mbau et Eringeti.',
+      'Renforcer l’accompagnement des femmes en situation de handicap dans l’accès aux services de santé et de protection.',
       'Former les femmes et les adolescentes en situation de handicap comme pairs éducatrices et préparer certaines d’entre elles à devenir formatrices.',
       'Renforcer les protocoles d’orientation avec les centres de santé, les intervenants psychosociaux, les services d’aide juridique, les forces de l’ordre et de protection et les organisations de personnes en situation de handicap.',
       'Créer des supports accessibles en français et en kiswahili sur les soins après un viol, la planification familiale, le dépistage du VIH, la grossesse en sécurité et les soins après un avortement.',
-      'Utiliser des fiches de redevabilité et de suivi des engagements pour obtenir des améliorations concrètes auprès des prestataires et des autorités.',
+      'Poursuivre le dialogue avec les prestataires et les autorités pour améliorer les services destinés aux survivantes.',
       'Renforcer les dispositifs de protection, de gestion des données, de suivi et de mobilisation de fonds.',
     ],
-    figures: [
-      ['zones prioritaires', 'Beni, Oicha, Mavivi, Mbau et Eringeti'],
-      ['pairs éducatrices', 'Femmes et filles en situation de handicap'],
-      ['formatrices', 'Pairs éducatrices sélectionnées et préparées à former d’autres personnes'],
-      ['femmes et survivantes', 'Objectif : information sûre et orientations'],
-      ['mois', 'Durée prévue du programme ISACAD'],
-    ],
-    locations: {
-      'Urban centre': 'Centre urbain',
-      'Peri-urban': 'Périurbain',
-      Rural: 'Zone rurale',
-      'Displacement-affected': 'Communauté touchée par les déplacements',
-    },
   },
   translations: {
     'Kiswahili message': 'Message en kiswahili',
@@ -225,7 +202,7 @@ function localizeToFrench(content) {
     if (data.call[slug]) data.call[slug] = { ...data.call[slug], heading, body };
   }
 
-  for (const key of ['profile', 'dashboard', 'barriers', 'theory', 'assumptions', 'stakeholders', 'outreach', 'terms', 'indicators', 'risks', 'priorities']) {
+  for (const key of ['profile', 'barriers', 'theory', 'assumptions', 'stakeholders', 'outreach', 'terms', 'indicators', 'risks', 'priorities']) {
     data[key] = data[key].map((row, index) => {
       const values = translations.tables[key]?.[index];
       if (!values) return row;
@@ -234,15 +211,6 @@ function localizeToFrench(content) {
     });
   }
 
-  data.locations = data.locations.map((row) => ({
-    ...row,
-    kind: translations.tables.locations[row.kind] || row.kind,
-  }));
-  data.figures = data.figures.map((row, index) => ({
-    ...row,
-    label: translations.tables.figures[index][0],
-    detail: translations.tables.figures[index][1],
-  }));
   data.messages = data.messages.map((row, index) => ({
     ...row,
     message_type: ['Message en kiswahili', 'Message en français', 'Message de protection des survivantes'][index],

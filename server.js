@@ -47,6 +47,7 @@ app.use(express.urlencoded({ extended: false, limit: '20kb' }));
 
 // -- Multer for gallery uploads --------------------------------------------------------
 const GALLERY_DIR = path.join(__dirname, 'public', 'img', 'gallery');
+const REMOVED_GALLERY_IMAGE = 'visumo-cadre-operationnel.jpg';
 if (process.env.VERCEL !== '1' && !fs.existsSync(GALLERY_DIR)) fs.mkdirSync(GALLERY_DIR, { recursive: true });
 
 const storage = multer.diskStorage({
@@ -115,7 +116,10 @@ app.get('/2026', page('priorities', 'page_priorities_title', 'impact'));
 // -- Gallery ---------------------------------------------------------------------------
 app.get('/gallery', async (req, res, next) => {
   try {
-    const images = await db.query('SELECT id, filename, caption, alt_text, image_data IS NOT NULL AS stored_in_database FROM gallery_images ORDER BY sort_order, created_at DESC');
+    const images = await db.query(
+      'SELECT id, filename, caption, alt_text, image_data IS NOT NULL AS stored_in_database FROM gallery_images WHERE filename <> ? ORDER BY sort_order, created_at DESC',
+      [REMOVED_GALLERY_IMAGE],
+    );
     res.render('pages/gallery', {
       title: res.locals.t.gallery_title,
       active: 'gallery',
@@ -130,7 +134,10 @@ app.get('/gallery/image/:id', async (req, res, next) => {
   try {
     const id = Number.parseInt(req.params.id, 10);
     if (!Number.isInteger(id)) return res.sendStatus(404);
-    const rows = await db.query('SELECT filename, image_data FROM gallery_images WHERE id = ?', [id]);
+    const rows = await db.query(
+      'SELECT filename, image_data FROM gallery_images WHERE id = ? AND filename <> ?',
+      [id, REMOVED_GALLERY_IMAGE],
+    );
     if (!rows.length || !rows[0].image_data) return res.sendStatus(404);
     res.set('Cache-Control', 'public, max-age=31536000, immutable');
     res.type(path.extname(rows[0].filename)).send(rows[0].image_data);
