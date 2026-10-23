@@ -2,11 +2,11 @@
   "name": "visumo-website",
   "version": "1.0.0",
   "description": "Website for Violence Survivors Mothers (VISUMO), North Kivu, DRC - driven by a PostgreSQL or MySQL database",
-  "main": "server.js",
+  "main": "index.js",
   "private": true,
   "license": "UNLICENSED",
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "scripts": {
     "start": "node server.js",

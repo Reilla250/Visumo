@@ -145,6 +145,7 @@
     </div>
     <% } %>
 
+    <% if (!vercelRuntime) { %>
     <div class="admin-section">
       <h2>Ajouter une photo</h2>
       <form method="POST" action="/admin/gallery/upload" enctype="multipart/form-data" class="upload-form">
@@ -170,6 +171,12 @@
         </div>
       </form>
     </div>
+    <% } else { %>
+    <div class="admin-section">
+      <h2>Ajouter une photo</h2>
+      <p class="muted">Sur l’hébergement Vercel, ajoutez les photos dans <code>public/img/gallery</code> puis déployez à nouveau.</p>
+    </div>
+    <% } %>
 
     <div class="admin-section">
       <h2>Photos existantes (<%= galleryImages.length %>)</h2>

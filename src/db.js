@@ -42,8 +42,13 @@ if (client === 'postgres' || client === 'postgresql' || client === 'pg') {
     database: cfg.database,
     charset: 'utf8mb4',
     waitForConnections: true,
-    connectionLimit: Number(process.env.DB_POOL_SIZE) || 10,
-    ssl: process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : undefined,
+    // A small pool suits Vercel's short-lived function instances and keeps
+    // well below TiDB Cloud Starter's connection cap.
+    connectionLimit: Number(process.env.DB_POOL_SIZE) || (process.env.VERCEL === '1' ? 2 : 10),
+    maxIdle: Number(process.env.DB_POOL_SIZE) || (process.env.VERCEL === '1' ? 2 : 10),
+    idleTimeout: 60_000,
+    connectTimeout: 10_000,
+    ssl: process.env.DB_SSL === 'true' ? { minVersion: 'TLSv1.2' } : undefined,
   });
   query = async (sql, params = []) => {
     const [rows] = await pool.query(sql, params);

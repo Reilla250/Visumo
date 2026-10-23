@@ -5,6 +5,8 @@ SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 DROP TABLE IF EXISTS contact_messages;
+DROP TABLE IF EXISTS gallery_images;
+DROP TABLE IF EXISTS admin_users;
 DROP TABLE IF EXISTS site_images;
 DROP TABLE IF EXISTS site_settings;
 DROP TABLE IF EXISTS document_control;

@@ -5,6 +5,8 @@ SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 DROP TABLE IF EXISTS contact_messages;
+DROP TABLE IF EXISTS gallery_images;
+DROP TABLE IF EXISTS admin_users;
 DROP TABLE IF EXISTS site_images;
 DROP TABLE IF EXISTS site_settings;
 DROP TABLE IF EXISTS document_control;
@@ -246,6 +248,23 @@ CREATE TABLE contact_messages (
     is_read      BOOLEAN      NOT NULL DEFAULT FALSE,
     created_at   TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
     INDEX idx_contact_messages_created (created_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE gallery_images (
+    id         INT AUTO_INCREMENT PRIMARY KEY,
+    filename   VARCHAR(255) NOT NULL UNIQUE,
+    caption    TEXT         NOT NULL,
+    alt_text   VARCHAR(300) NOT NULL DEFAULT '',
+    sort_order INT          NOT NULL DEFAULT 0,
+    created_at TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE admin_users (
+    id            INT AUTO_INCREMENT PRIMARY KEY,
+    username      VARCHAR(80)  NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    role          VARCHAR(30)  NOT NULL DEFAULT 'admin',
+    created_at    TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- VISUMO website data - MySQL / MariaDB

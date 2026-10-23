@@ -25,6 +25,134 @@ charts), Accountability, 2026 plan, Report (contents, annex, document control, r
 official letterhead), Contact (saves to the database), plus a password-protected `/admin` inbox, `/api/income`,
 `/api/sections` and `/healthz`.
 
+## Deploy the full website free: TiDB Cloud + Vercel
+
+The **frontend and backend deploy together to Vercel**. Vercel serves the pages, CSS, JavaScript, images, contact form, admin pages, and API routes. TiDB Cloud stores the page content and contact messages in a MySQL-compatible database. You do not need to deploy a second backend server.
+
+This setup uses TiDB Cloud Starter's monthly free quota and Vercel Hobby's free tier. TiDB currently includes 5 GiB of row storage and 50 million request units per month for each of the first five MySQL-compatible Starter instances in an organization. If the database reaches its free quota, new connections are refused until the next monthly reset. [TiDB free quota details](https://docs.pingcap.com/tidbcloud/serverless-limitations/)
+
+Vercel Hobby is restricted to personal or non-commercial use. Vercel defines commercial use by financial gain, including when a paid employee or consultant worked on the project. Confirm that VISUMO's use qualifies before choosing Hobby; otherwise Vercel requires a paid plan. [Vercel Hobby rules](https://vercel.com/docs/limits/fair-use-guidelines#commercial-usage)
+
+### What you need
+
+- A TiDB Cloud account and a Vercel account.
+- Node.js 20 or newer on your computer.
+- This project pushed to a GitHub repository in your personal GitHub account. Vercel can deploy an existing Express app directly from a Git repository. [Vercel Express deployment guide](https://vercel.com/kb/guide/ship-a-express-app-on-vercel)
+
+### Step 1: Create your TiDB database
+
+1. Sign in to [TiDB Cloud](https://tidbcloud.com/).
+2. Choose **Create Resource**, select **Starter**, and select **MySQL Compatible**.
+3. Choose a cloud region. When Vercel is set up, choose its function region close to this database region to reduce delay.
+4. Set the monthly spending limit to **0** so the instance stays on the free quota, then create it.
+5. Open your new instance and choose **Connect**. Use the public connection. Generate and save the password. Copy the host and the exact username shown in the connection details. TiDB Starter requires TLS; this app uses it when `DB_SSL=true`. [TiDB create and connect guide](https://docs.pingcap.com/tidbcloud/create-tidb-cluster-serverless/)
+
+TiDB's default database is commonly named `test`. Use the database name shown by its connection details; if you changed or created another database, use that name instead.
+
+### Step 2: Import the website content into TiDB
+
+Open a terminal in the project folder and install the locked dependencies:
+
+```bash
+npm ci
+```
+
+Create a private local environment file:
+
+```bash
+cp .env.example .env
+```
+
+Open `.env` in a text editor and set these values. Replace the angle bracket examples with values from TiDB's **Connect** panel. Do not include the angle brackets themselves.
+
+```dotenv
+DB_CLIENT=mysql
+DB_HOST=<TiDB host>
+DB_PORT=4000
+DB_NAME=test
+DB_USER=<TiDB username>
+DB_PASSWORD="<TiDB password>"
+DB_SSL=true
+DB_POOL_SIZE=2
+ADMIN_USER=admin
+ADMIN_PASSWORD="<a long unique password>"
+SESSION_SECRET=<a random secret>
+```
+
+Generate a random session secret by running this command in the terminal, then paste its output as `SESSION_SECRET` in `.env`:
+
+```bash
+node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+```
+
+Load the tables and report content into TiDB:
+
+```bash
+node scripts/init-db.js mysql
+```
+
+The script should finish with `Database "test" ... initialised`. It refuses to overwrite an existing VISUMO database. Run it once for the new database, not each time you deploy.
+
+### Step 3: Push the project to GitHub
+
+If the project is already connected to your personal GitHub repository, commit and push the current changes:
+
+```bash
+git add .
+git commit -m "Prepare VISUMO for TiDB and Vercel"
+git push
+```
+
+If it is not on GitHub yet, create a repository under your personal GitHub account, connect this local project to it, then push. Keep `.env` out of Git; it is ignored by `.gitignore`. Never put database passwords in source files or commit messages.
+
+### Step 4: Deploy the frontend and backend on Vercel
+
+1. Sign in at [Vercel](https://vercel.com/) and choose **Add New → Project**.
+2. Import the GitHub repository containing this project.
+3. Leave the project root as the repository root. Vercel detects the Express app; do not choose a separate frontend framework or add a build command. The root `index.js` exports the app, and `vercel.json` includes the EJS templates and public files in the deployment. Vercel runs the Express site as a Function and serves the static files with it.
+4. Before deploying, add these under **Environment Variables**. Apply them to **Production**; also apply them to **Preview** if you want preview deployments to connect to the same database. Enter passwords as their exact values, without quote marks.
+
+   | Name | Value |
+   | --- | --- |
+   | `DB_CLIENT` | `mysql` |
+   | `DB_HOST` | TiDB host from Connect |
+   | `DB_PORT` | `4000` |
+   | `DB_NAME` | The database name from Connect, usually `test` |
+   | `DB_USER` | Exact TiDB username from Connect |
+   | `DB_PASSWORD` | TiDB password |
+   | `DB_SSL` | `true` |
+   | `DB_POOL_SIZE` | `2` |
+   | `ADMIN_USER` | `admin` or your chosen admin username |
+   | `ADMIN_PASSWORD` | The strong password you made in Step 2 |
+   | `SESSION_SECRET` | The random secret you made in Step 2 |
+   | `FORCE_HTTPS` | `true` |
+   | `SITE_URL` | Add after the first deploy |
+
+5. Click **Deploy**. Wait for the deployment to finish. Vercel gives you an address like `https://your-project.vercel.app`.
+6. Add `SITE_URL` using that address, without a trailing slash, then redeploy so the sitemap and page previews use the right URL.
+7. In Vercel **Settings → Functions**, set the function region close to your TiDB region, then redeploy if you change it. Vercel's function region affects database request delay; static assets are served globally.
+
+Environment variable changes only affect new deployments, so redeploy after changing them. [Vercel environment variable guide](https://vercel.com/docs/environment-variables)
+
+### Step 5: Check that everything works
+
+Open these pages on the Vercel URL:
+
+- `/healthz` should return `{"status":"ok","database":"mysql"}`.
+- `/` should show the home page with the report content, rather than blank or sample data.
+- `/finance` should show the income figures and charts.
+- `/api/income` should return JSON data.
+- `/admin/login` should let you sign in with `ADMIN_USER` and `ADMIN_PASSWORD`.
+- Submit a test message at `/contact`, then confirm it appears in `/admin`.
+
+If `/healthz` returns an error, check that the TiDB hostname, exact username, password, database name, port `4000`, and `DB_SSL=true` match the Connect panel. If the deployment build fails, open **Vercel → Deployments → failed deployment → Build Logs** and check that the project root is the repository root and Node.js is version 20 or newer.
+
+### Updating the site after deployment
+
+Push code changes to the connected GitHub branch and Vercel deploys them. Text and report content are stored in TiDB and can be edited through SQL; the site caches content for 60 seconds. Contact messages are stored in TiDB and remain after redeployment. Gallery images already in `public/img/gallery` are deployed with the site. New gallery photos must be added to that folder in Git and pushed; Vercel's function filesystem is temporary, so the admin upload form is replaced with instructions on Vercel.
+
+For a separate Linux or Docker deployment, see [DEPLOYMENT.md](DEPLOYMENT.md).
+
 ## Quick start (Docker - easiest)
 
 Needs Docker with Compose. Pick one database:
@@ -42,7 +170,7 @@ Open <http://localhost:3000>. The database is created and filled with the report
 
 ## Quick start (without Docker)
 
-Needs Node.js 18+ and a running PostgreSQL 13+ or MySQL 8 / MariaDB 10.5+.
+Needs Node.js 20+ and a running PostgreSQL 13+ or MySQL 8 / MariaDB 10.5+.
 
 ```bash
 npm install --omit=dev

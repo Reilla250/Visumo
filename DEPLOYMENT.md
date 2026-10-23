@@ -1,7 +1,74 @@
 # Deployment guide
 
-Two supported ways to run the site on a server. Both work with PostgreSQL **or** MySQL.
-Examples assume Ubuntu 22.04/24.04 and a domain `example.org` pointing at the server's IP.
+This guide covers Docker, a Linux server, and the TiDB Cloud + Vercel setup.
+
+---
+
+## Option C - TiDB Cloud + Vercel
+
+This runs the Express website as a Vercel Function and stores the site content and contact messages in TiDB Cloud Starter using its MySQL interface. TiDB Cloud Starter currently includes 5 GiB of row storage and 50 million request units per month for each of the first five MySQL-compatible instances in an organization. If the free quota is reached, TiDB refuses new connections until the monthly reset. Set the spending limit to **0** when creating the instance to keep it free.
+
+### 1. Create the TiDB database
+
+1. Sign in at [TiDB Cloud](https://tidbcloud.com/) and create a **Starter** instance with **MySQL Compatible** mode.
+2. Choose a region near your Vercel function region and create the instance with a **0** monthly spending limit.
+3. Open the instance's **Connect** panel, choose the public connection, and generate/save its password. Copy the host and the exact username shown there. TiDB Starter requires TLS; this project enables it with `DB_SSL=true`.
+
+The default database in a new TiDB Starter instance is usually `test`. Use that unless you create another database first.
+
+### 2. Load the website content into TiDB
+
+On your computer, install the project dependencies and make a private local `.env` file:
+
+```bash
+npm ci
+cp .env.example .env
+```
+
+Set these values in `.env` from TiDB's **Connect** panel. Use a unique strong password for the admin and a random session secret; never put real values in Git:
+
+```dotenv
+DB_CLIENT=mysql
+DB_HOST=<TiDB host>
+DB_PORT=4000
+DB_NAME=test
+DB_USER=<TiDB username>
+DB_PASSWORD=<TiDB password>
+DB_SSL=true
+DB_POOL_SIZE=2
+ADMIN_USER=admin
+ADMIN_PASSWORD=<long unique admin password>
+SESSION_SECRET=<long random secret>
+```
+
+Generate a session secret with `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`. Then create all tables and import the report content:
+
+```bash
+node scripts/init-db.js mysql
+```
+
+This script refuses to overwrite existing VISUMO tables. It is safe to run once on the new empty database.
+
+### 3. Deploy the app to Vercel
+
+Push this project to a Git repository in your personal GitHub account, then import it from [Vercel New Project](https://vercel.com/new). Vercel should detect the Express app at the project root; leave the build and output settings on their defaults. The included `index.js` exports the Express app, and `vercel.json` includes the EJS templates and public assets in the function bundle.
+
+In the Vercel project's **Settings → Environment Variables**, add the same database and admin values from `.env` for **Production** (and Preview too if you want preview deployments to work). Also set:
+
+```dotenv
+DB_CLIENT=mysql
+DB_PORT=4000
+DB_NAME=test
+DB_SSL=true
+DB_POOL_SIZE=2
+FORCE_HTTPS=true
+```
+
+Set `SITE_URL` to the Vercel deployment URL after the first deploy, then redeploy. Vercel's standard Express deployment runs the whole app as a Function. The contact form and admin inbox persist through TiDB. Image uploads to the gallery are disabled on Vercel because function files do not persist; add images under `public/img/gallery` in Git and redeploy.
+
+When deployment finishes, open `https://<your-project>.vercel.app/healthz`. It should return `{"status":"ok","database":"mysql"}`. Then open `/admin/login`, sign in with `ADMIN_USER` and `ADMIN_PASSWORD`, and send a contact form message to confirm it appears in the inbox.
+
+Vercel Hobby is free for personal and non-commercial use. Vercel defines commercial usage by financial gain, including cases where a paid employee or consultant wrote the code. Confirm the project qualifies before using Hobby for the VISUMO organization; if it does not, Vercel requires Pro, so the Vercel portion cannot stay free under its current terms. TiDB's free quota is also bounded and can temporarily stop database requests if exhausted.
 
 ---
 

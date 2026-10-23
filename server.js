@@ -18,9 +18,11 @@ const { i18nMiddleware } = require('./src/i18n');
 const app = express();
 const PORT = Number(process.env.PORT) || 3000;
 const HOST = process.env.HOST || '0.0.0.0';
+const IS_VERCEL = process.env.VERCEL === '1';
 const SITE_URL = (process.env.SITE_URL || '').replace(/\/$/, '');
 
 if (process.env.TRUST_PROXY) app.set('trust proxy', Number(process.env.TRUST_PROXY) || process.env.TRUST_PROXY);
+else if (process.env.VERCEL === '1') app.set('trust proxy', 1);
 app.disable('x-powered-by');
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -46,7 +48,7 @@ app.use(express.urlencoded({ extended: false, limit: '20kb' }));
 
 // -- Multer for gallery uploads --------------------------------------------------------
 const GALLERY_DIR = path.join(__dirname, 'public', 'img', 'gallery');
-if (!fs.existsSync(GALLERY_DIR)) fs.mkdirSync(GALLERY_DIR, { recursive: true });
+if (process.env.VERCEL !== '1' && !fs.existsSync(GALLERY_DIR)) fs.mkdirSync(GALLERY_DIR, { recursive: true });
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, GALLERY_DIR),
@@ -77,20 +79,18 @@ app.locals.contactEmail = process.env.CONTACT_EMAIL || 'visumoadm@gmail.com';
 app.locals.year = new Date().getFullYear();
 
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: '7d', index: false }));
+app.use(i18nMiddleware);
 
-// -- Content middleware (Temporary Mock for Vercel Preview) -----------------------------
-app.use((req, res, next) => {
-  res.locals.c = {
-    settings: { tagline: "VISUMO website" },
-    income: { years: [], sources: [] }
-  };
-  res.locals.path = req.path;
-  res.locals.noindex = false;
-  res.locals.title = '';
-  res.locals.description = "Website for Violence Survivors Mothers (VISUMO)";
-  next();
-});
-
+// Load page content from the selected database and cache it on warm instances.
+app.use(async (req, res, next) => {
+  try {
+    res.locals.c = await getContent();
+    res.locals.path = req.path;
+    res.locals.noindex = false;
+    res.locals.title = '';
+    res.locals.description = res.locals.c.settings.tagline || 'VISUMO';
+    res.locals.vercelRuntime = process.env.VERCEL === '1';
+    next();
   } catch (err) {
     next(err);
   }
@@ -183,7 +183,7 @@ app.post('/contact', contactLimiter, async (req, res, next) => {
 });
 
 // ---- Admin Authentication (Database & Session Cookie + HTTP Basic fallback) ----
-const SESSION_SECRET = process.env.SESSION_SECRET || 'visumo-secret-key-2026-safe-token';
+const SESSION_SECRET = process.env.SESSION_SECRET || (IS_VERCEL ? '' : 'visumo-secret-key-2026-safe-token');
 
 function createAdminToken(username) {
   const expires = Date.now() + 7 * 24 * 60 * 60 * 1000; // 7 days
@@ -226,6 +226,9 @@ function safeEqual(a, b) {
 }
 
 async function adminAuth(req, res, next) {
+  if (IS_VERCEL && (!process.env.ADMIN_PASSWORD || !SESSION_SECRET)) {
+    return res.status(503).send('Admin access is not configured. Set ADMIN_PASSWORD and SESSION_SECRET.');
+  }
   // 1. Check session cookie
   const sessionToken = parseCookie(req, 'admin_session');
   if (sessionToken) {
@@ -292,6 +295,9 @@ app.get('/admin/login', (req, res) => {
 });
 
 app.post('/admin/login', async (req, res) => {
+  if (IS_VERCEL && (!process.env.ADMIN_PASSWORD || !SESSION_SECRET)) {
+    return res.status(503).render('pages/admin-login', { error: 'Admin access is not configured. Set ADMIN_PASSWORD and SESSION_SECRET.' });
+  }
   const username = String(req.body.username || '').trim();
   const password = String(req.body.password || '');
   if (!username || !password) {
@@ -311,6 +317,7 @@ app.post('/admin/login', async (req, res) => {
       res.cookie('admin_session', token, {
         httpOnly: true,
         sameSite: 'lax',
+        secure: process.env.VERCEL === '1' || process.env.FORCE_HTTPS === 'true',
         maxAge: 7 * 24 * 60 * 60 * 1000,
       });
       return res.redirect('/admin');
@@ -388,6 +395,10 @@ app.post('/admin/messages/:id/delete', adminAuth, sameOrigin, async (req, res, n
 
 // Admin: upload gallery image
 app.post('/admin/gallery/upload', adminAuth, sameOrigin, (req, res, next) => {
+  // Vercel deployments have an ephemeral, read-only application filesystem.
+  if (process.env.VERCEL === '1') {
+    return res.redirect('/admin?section=gallery&error=uploads-unavailable-on-vercel');
+  }
   upload.single('image')(req, res, (err) => {
     if (err) {
       console.error('[gallery upload multer error]', err);
