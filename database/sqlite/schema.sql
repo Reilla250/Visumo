@@ -212,6 +212,7 @@ CREATE TABLE IF NOT EXISTS gallery_images (
     filename   TEXT    NOT NULL UNIQUE,
     caption    TEXT    NOT NULL DEFAULT '',
     alt_text   TEXT    NOT NULL DEFAULT '',
+    image_data BLOB,
     sort_order INTEGER NOT NULL DEFAULT 0,
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
@@ -223,4 +224,3 @@ CREATE TABLE IF NOT EXISTS admin_users (
     role          TEXT    NOT NULL DEFAULT 'admin',
     created_at    DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
-

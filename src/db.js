@@ -103,6 +103,7 @@ if (client === 'postgres' || client === 'postgresql' || client === 'pg') {
       filename TEXT NOT NULL UNIQUE,
       caption TEXT NOT NULL DEFAULT '',
       alt_text TEXT NOT NULL DEFAULT '',
+      image_data BLOB,
       sort_order INTEGER NOT NULL DEFAULT 0,
       created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
     );
@@ -148,6 +149,42 @@ if (client === 'postgres' || client === 'postgresql' || client === 'pg') {
 } else {
   throw new Error(`Unsupported DB_CLIENT "${client}". Use "postgres", "mysql", or "sqlite".`);
 }
+
+const rawQuery = query;
+let galleryImageStorageReady;
+async function ensureGalleryImageStorage() {
+  if (!galleryImageStorageReady) {
+    galleryImageStorageReady = (async () => {
+      let columns;
+      if (client === 'sqlite') {
+        columns = await rawQuery('PRAGMA table_info(gallery_images)');
+        if (!columns.some((column) => column.name === 'image_data')) {
+          await rawQuery('ALTER TABLE gallery_images ADD COLUMN image_data BLOB');
+        }
+      } else if (client === 'mysql' || client === 'mariadb') {
+        columns = await rawQuery(
+          "SELECT COLUMN_NAME AS column_name FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'gallery_images' AND COLUMN_NAME = 'image_data'",
+        );
+        if (!columns.length) {
+          await rawQuery('ALTER TABLE gallery_images ADD COLUMN image_data LONGBLOB NULL');
+        }
+      } else {
+        columns = await rawQuery(
+          "SELECT column_name FROM information_schema.columns WHERE table_schema = current_schema() AND table_name = 'gallery_images' AND column_name = 'image_data'",
+        );
+        if (!columns.length) {
+          await rawQuery('ALTER TABLE gallery_images ADD COLUMN image_data BYTEA');
+        }
+      }
+    })();
+  }
+  return galleryImageStorageReady;
+}
+
+query = async (sql, params = []) => {
+  await ensureGalleryImageStorage();
+  return rawQuery(sql, params);
+};
 
 async function ping() {
   await query('SELECT 1 AS ok');

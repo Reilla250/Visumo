@@ -16,7 +16,7 @@
       <div class="gallery-grid">
         <% images.forEach(function (img, idx) { %>
           <figure class="gallery-item" data-index="<%= idx %>">
-            <img src="/img/gallery/<%= img.filename %>" alt="<%= img.alt_text || img.caption %>" loading="lazy">
+            <img src="<%= img.stored_in_database ? '/gallery/image/' + img.id : '/img/gallery/' + img.filename %>" alt="<%= img.alt_text || img.caption %>" loading="lazy">
             <% if (img.caption) { %>
               <figcaption><%= img.caption %></figcaption>
             <% } %>

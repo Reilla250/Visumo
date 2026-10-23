@@ -53,14 +53,16 @@ if (process.env.VERCEL !== '1' && !fs.existsSync(GALLERY_DIR)) fs.mkdirSync(GALL
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, GALLERY_DIR),
   filename: (req, file, cb) => {
-    const ext = path.extname(file.originalname).toLowerCase();
-    const name = `gallery-${Date.now()}-${Math.random().toString(36).slice(2, 8)}${ext}`;
-    cb(null, name);
+    cb(null, galleryFilename(file.originalname));
   },
 });
+function galleryFilename(originalname) {
+  const ext = path.extname(originalname).toLowerCase();
+  return `gallery-${Date.now()}-${Math.random().toString(36).slice(2, 8)}${ext}`;
+}
 const upload = multer({
-  storage,
-  limits: { fileSize: 8 * 1024 * 1024 },
+  storage: IS_VERCEL ? multer.memoryStorage() : storage,
+  limits: { fileSize: IS_VERCEL ? 4 * 1024 * 1024 : 8 * 1024 * 1024 },
   fileFilter: (req, file, cb) => {
     const allowed = ['.jpg', '.jpeg', '.png', '.webp', '.gif'];
     const ext = path.extname(file.originalname).toLowerCase();
@@ -124,12 +126,25 @@ app.get('/report', page('report', 'page_report_title', 'impact'));
 // -- Gallery ---------------------------------------------------------------------------
 app.get('/gallery', async (req, res, next) => {
   try {
-    const images = await db.query('SELECT id, filename, caption, alt_text FROM gallery_images ORDER BY sort_order, created_at DESC');
+    const images = await db.query('SELECT id, filename, caption, alt_text, image_data IS NOT NULL AS stored_in_database FROM gallery_images ORDER BY sort_order, created_at DESC');
     res.render('pages/gallery', {
       title: res.locals.t.gallery_title,
       active: 'gallery',
       images,
     });
+  } catch (err) {
+    next(err);
+  }
+});
+
+app.get('/gallery/image/:id', async (req, res, next) => {
+  try {
+    const id = Number.parseInt(req.params.id, 10);
+    if (!Number.isInteger(id)) return res.sendStatus(404);
+    const rows = await db.query('SELECT filename, image_data FROM gallery_images WHERE id = ?', [id]);
+    if (!rows.length || !rows[0].image_data) return res.sendStatus(404);
+    res.set('Cache-Control', 'public, max-age=31536000, immutable');
+    res.type(path.extname(rows[0].filename)).send(rows[0].image_data);
   } catch (err) {
     next(err);
   }
@@ -347,7 +362,7 @@ app.get('/admin', adminAuth, async (req, res, next) => {
       'SELECT id, full_name, email, organisation, subject, message, is_read, created_at FROM contact_messages ORDER BY created_at DESC, id DESC LIMIT 200',
     );
     const galleryImages = await db.query(
-      'SELECT id, filename, caption, alt_text, sort_order, created_at FROM gallery_images ORDER BY sort_order, created_at DESC',
+      'SELECT id, filename, caption, alt_text, sort_order, created_at, image_data IS NOT NULL AS stored_in_database FROM gallery_images ORDER BY sort_order, created_at DESC',
     );
     const settingsRows = await db.query('SELECT setting_key, setting_value FROM site_settings');
     const settings = Object.fromEntries(settingsRows.map((r) => [r.setting_key, r.setting_value]));
@@ -395,10 +410,6 @@ app.post('/admin/messages/:id/delete', adminAuth, sameOrigin, async (req, res, n
 
 // Admin: upload gallery image
 app.post('/admin/gallery/upload', adminAuth, sameOrigin, (req, res, next) => {
-  // Vercel deployments have an ephemeral, read-only application filesystem.
-  if (process.env.VERCEL === '1') {
-    return res.redirect('/admin?section=gallery&error=uploads-unavailable-on-vercel');
-  }
   upload.single('image')(req, res, (err) => {
     if (err) {
       console.error('[gallery upload multer error]', err);
@@ -411,14 +422,16 @@ app.post('/admin/gallery/upload', adminAuth, sameOrigin, (req, res, next) => {
     if (!req.file) return res.redirect('/admin?section=gallery&error=no-file');
     const caption = String(req.body.caption || '').trim().slice(0, 300);
     const alt_text = String(req.body.alt_text || '').trim().slice(0, 300) || caption;
+    const filename = req.file.filename || galleryFilename(req.file.originalname);
     await db.query(
-      'INSERT INTO gallery_images (filename, caption, alt_text) VALUES (?, ?, ?)',
-      [req.file.filename, caption, alt_text],
+      'INSERT INTO gallery_images (filename, caption, alt_text, image_data) VALUES (?, ?, ?, ?)',
+      [filename, caption, alt_text, req.file.buffer || null],
     );
     clearCache();
     res.redirect('/admin?section=gallery&success=uploaded');
   } catch (err) {
     console.error('[gallery insert error]', err);
+    if (req.file && req.file.path && fs.existsSync(req.file.path)) fs.unlinkSync(req.file.path);
     res.redirect('/admin?section=gallery&error=db_error');
   }
 });
@@ -525,4 +538,3 @@ if (require.main === module) {
 }
 
 module.exports = app;
-
